@@ -14,7 +14,7 @@ void Gamemode::setUpGamemode(int nPlayers, int nHandCount, string nPlayerOutText
 
 	for (int i = 0; i < howManyPlayers; i++) {
 		player newPlayer;
-		newPlayer.setName("Player " + i + 1);
+		newPlayer.assignRandomName();
 		players.push_back(newPlayer);
 	}
 
@@ -43,6 +43,8 @@ void Gamemode::printLogo() {
 }
 
 void Gamemode::newHands() {
+	gameRunning = true;
+
 	if (size(players) > 0) {
 		for (auto& player : players) {
 			for (int i = 0; i < howManyCardsPerStartingHand; i++) {
@@ -102,6 +104,10 @@ void Gamemode::bustPlayer(player& player) {
 	player.beaten();
 }
 
+vector<player>& Gamemode::getBustPlayers() {
+	return bustPlayers;
+}
+
 void Gamemode::dealCard(player& player) {
 	player.giveCard(deck.getTopCard());
 }
@@ -111,6 +117,7 @@ void Gamemode::displayText(string text, string colorCode) {
 }
 
 void Gamemode::win(player winnner) {
+	gameRunning = false;
 	listAllPlayersHands(0);
 
 	console.displayText(winnner.getName() + " won!", "37");

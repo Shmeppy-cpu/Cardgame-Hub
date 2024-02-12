@@ -19,7 +19,7 @@ void player::listHand(int hiddenCards) {
 
 	string extra;
 
-	if (getIsMainPlayer() == true or hiddenCards == 0) {
+	if (getIsMainPlayer() == true or hiddenCards == 0 or isOut() == true) {
 		extra = to_string(getHandValue());
 	}
 
@@ -86,4 +86,13 @@ string player::getName() {
 
 void player::beaten() {
 	out = true;
+}
+
+bool player::isOut() {
+	return out;
+}
+
+void player::assignRandomName() {
+	int amountOfNames = size(names);
+	setName(names[(0 + rand() % amountOfNames)]);
 }

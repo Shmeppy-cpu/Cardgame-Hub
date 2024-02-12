@@ -1,7 +1,7 @@
 #include "Blackjack.h"
 
 Blackjack::Blackjack() {
-	setUpGamemode(2, 2, " has gone bust!",
+	setUpGamemode(3, 2, " has gone bust!",
 		R"(                                                                                                      
     ,---,.    ,--,                                   ,-.                 .-- -.' \                                ,-.  
   ,'  .'  \ ,--.'|                               ,--/ /|                 |    |   :                           ,--/ /|  
@@ -47,57 +47,65 @@ void Blackjack::playersInput() {
 
 	for (auto &player : getAllPlayers())
 	{
-		action = "";
-
-		while (action != "s" or "b")
+		if (gameRunning == true)
 		{
-			if (&player == mainPlayer)
-			{
-				displayText(player.getName() + ", Do you want to stand(s)? or hit(h)?", "37");
-				getline(cin, action);
-			}
-			else
-			{
-				displayText(player.getName() + " is thinking...", "37");
-				Sleep(2000);
+			action = "";
 
-				//Hits if NPCs value is lower than 12
-				if (player.getHandValue() <= 14)
+			while (action != "s")
+			{
+				if (&player == mainPlayer)
 				{
-					action = "h";
-				} 
-				//Stands if it is higher than 17
-				else if (player.getHandValue() >= 18)
-				{
-					action = "s";
+					displayText(player.getName() + ", Do you want to stand(s)? or hit(h)?", "37");
+					getline(cin, action);
 				}
-				//If inbetween there is 50% chance whether it will hit or stand
-				else 
+				else
 				{
-					if ((0 + rand() % 1) == 1) {
+					displayText(player.getName() + " is thinking...", "37");
+					Sleep(5000);
+
+					//Hits if NPCs value is lower than 12
+					if (player.getHandValue() <= 14)
+					{
 						action = "h";
 					}
-					else
+					//Stands if it is higher than 17
+					else if (player.getHandValue() >= 18)
 					{
 						action = "s";
 					}
+					//If inbetween there is 50% chance whether it will hit or stand
+					else
+					{
+						if ((0 + rand() % 1) == 1) {
+							action = "h";
+						}
+						else
+						{
+							action = "s";
+						}
+					}
+				}
+
+				if (action == "h")
+				{
+					dealCard(player);
+					if (player.getHandValue() > 21)
+					{
+						bustPlayer(player);
+						action = "s";
+					}
+					else if (player.getHandValue() == 21)
+					{
+						win(player);
+					}
+
+					listAllPlayersHands(1);
 				}
 			}
 
-			if (action == "h")
+			if (player.isOut() == false)
 			{
-				dealCard(player);
-				if (player.getHandValue() > 21)
-				{
-					bustPlayer(player);
-				}
-				else if (player.getHandValue() == 21)
-				{
-					win(player);
-					break;
-				}
-
-				listAllPlayersHands(1);
+				putPlayerUpForWinning(player);
 			}
 		}
 	}

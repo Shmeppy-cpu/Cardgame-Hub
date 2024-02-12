@@ -10,6 +10,8 @@ protected:
 	player* mainPlayer;
 	player* dealer;
 
+	bool gameRunning;
+
 	Gamemode();
 
 	void printLogo();
@@ -23,6 +25,8 @@ protected:
 	vector<player>& getAllPlayers();
 
 	void bustPlayer(player& player);
+
+	vector<player>& getBustPlayers();
 
 	void dealCard(player& player);
 

@@ -6,6 +6,8 @@
 #include "Blackjack.h"
 #include "ConsoleManager.h"
 
+//...
+
 int main()
 {
 	srand(time(0));

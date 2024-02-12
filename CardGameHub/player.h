@@ -17,6 +17,17 @@ private:
 	ConsoleManager console;
 	bool out = false;
 
+	vector<string> names = {
+	"Issy",
+	"Owen",
+	"Rhys",
+	"Will",
+	"Jake",
+	"Abby",
+	"Katie",
+	"Sasha"
+	};
+
 public:
 	void setAsMainPlayer();
 
@@ -33,5 +44,9 @@ public:
 	string getName();
 
 	void beaten();
+
+	bool isOut();
+
+	void assignRandomName();
 };
 
