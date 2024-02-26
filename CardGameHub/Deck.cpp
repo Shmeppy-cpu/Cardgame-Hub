@@ -2,7 +2,7 @@
 #include "ConsoleManager.h"
 
 void Deck::fillDeck() {
-	string suits[4] = { "Hearts", "Diamonds", "Clubs", "Spades" };
+	enum_suit suits[4] = { Hearts, Diamonds, Spades, Clubs };
 
 	for (int s = 0; s <= 3; s++) {
 		for (int i = 2; i <= 14; i++) {
@@ -25,6 +25,10 @@ void Deck::shuffleDeck() {
 	for (Card i : temporaryDeck) {
 		deckOfCards.push(i);
 	}
+}
+
+void Deck::returnCardToDeck(Card card) {
+	deckOfCards.push(card);
 }
 
 Card Deck::getTopCard() {

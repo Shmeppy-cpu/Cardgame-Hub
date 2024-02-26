@@ -43,10 +43,14 @@ public:
 
 	string getName();
 
-	void beaten();
+	void setOutStatus(bool nInStatus);
 
 	bool isOut();
 
 	void assignRandomName();
+
+	Card getTopCard();
+
+	int getSizeOfHand();
 };
 

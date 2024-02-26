@@ -18,12 +18,10 @@ void Gamemode::setUpGamemode(int nPlayers, int nHandCount, string nPlayerOutText
 		players.push_back(newPlayer);
 	}
 
+	//Set the dealer and player pointers to the first 2 players in the list of players
 	dealer = &players[1];
 
 	mainPlayer = &players[0];
-
-	//dealer = &players.front();
-	//mainPlayer = &players.back();
 
 	dealer->setName("Dealer");
 	mainPlayer->setName("You");
@@ -45,6 +43,21 @@ void Gamemode::printLogo() {
 void Gamemode::newHands() {
 	gameRunning = true;
 
+	//Return all out players to the game
+	for (auto& player : bustPlayers) {
+		player.setOutStatus(false);
+		players.push_back(player);
+	}
+	bustPlayers.clear();
+
+	//Return all players cards to the deck
+	for (auto& player : players) {
+		for (int i = 0; i < player.getSizeOfHand(); i++) {
+			deck.returnCardToDeck(player.getTopCard());
+		}
+	}
+
+	//Hand out the correct amount of cards to all players
 	if (size(players) > 0) {
 		for (auto& player : players) {
 			for (int i = 0; i < howManyCardsPerStartingHand; i++) {
@@ -101,7 +114,7 @@ void Gamemode::bustPlayer(player& player) {
 	console.displayText(player.getName() + playerOutText, "37");
 	bustPlayers.push_back(player);
 
-	player.beaten();
+	player.setOutStatus(true);
 }
 
 vector<player>& Gamemode::getBustPlayers() {

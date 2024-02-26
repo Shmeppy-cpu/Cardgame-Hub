@@ -40,6 +40,17 @@ void Blackjack::checkForWin() {
 	}
 
 	win(currentWinner);
+
+	string playAgain;
+	displayText("Do you want to play again? y/n", "37");
+	getline(cin, playAgain);
+
+	if (playAgain == "n") {
+		exit(0);
+	}
+	else {
+		newRound();
+	}
 }
 
 void Blackjack::playersInput() {
@@ -63,7 +74,7 @@ void Blackjack::playersInput() {
 					displayText(player.getName() + " is thinking...", "37");
 					Sleep(5000);
 
-					//Hits if NPCs value is lower than 12
+					//Hits if NPCs value is lower than 14
 					if (player.getHandValue() <= 14)
 					{
 						action = "h";

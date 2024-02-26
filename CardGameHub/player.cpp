@@ -84,8 +84,8 @@ string player::getName() {
 	return name;
 }
 
-void player::beaten() {
-	out = true;
+void player::setOutStatus(bool nOutStatus) {
+	out = nOutStatus;
 }
 
 bool player::isOut() {
@@ -95,4 +95,14 @@ bool player::isOut() {
 void player::assignRandomName() {
 	int amountOfNames = size(names);
 	setName(names[(0 + rand() % amountOfNames)]);
+}
+
+Card player::getTopCard() {
+	Card card = hand.front();
+	hand.pop();
+	return card;
+}
+
+int player::getSizeOfHand() {
+	return size(hand);
 }

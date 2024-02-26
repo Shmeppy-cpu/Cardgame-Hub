@@ -16,6 +16,8 @@ public:
 
 	void shuffleDeck();
 
+	void returnCardToDeck(Card card);
+
 	Card getTopCard();
 };
 

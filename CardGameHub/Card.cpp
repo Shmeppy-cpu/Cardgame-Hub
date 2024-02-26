@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Card::Card(string nSuit, int nValue) {
+Card::Card(enum_suit nSuit, int nValue) {
 	suit = nSuit;
 	value = nValue;
 }
@@ -15,19 +15,34 @@ string Card::getDisplayForm() {
 
 void Card::display() {
 	string colorCode;
-	if (suit == "Hearts" or suit == "Diamonds") {
+	if (suit == Hearts or suit == Diamonds) {
 		colorCode = "31";
 	}
-	else if (suit == "Spades" or suit == "Clubs")
+	else if (suit == Spades or suit == Clubs)
 	{
 		colorCode = "30";
 	}
 
 	console.displayText(">-" + getVisualValue() + " of " + getSuit() + "-<", colorCode);
 }
-
 string Card::getSuit() {
-	return suit;
+	switch (suit)
+	{
+	case Hearts:
+		return "Hearts";
+		break;
+	case Diamonds:
+		return "Diamonds";
+		break;
+	case Spades:
+		return "Spades";
+		break;
+	case Clubs:
+		return "Clubs";
+		break;
+	default:
+		break;
+	}
 }
 
 string Card::getVisualValue() {

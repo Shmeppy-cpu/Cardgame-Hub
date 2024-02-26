@@ -5,15 +5,22 @@
 
 using namespace std;
 
+enum enum_suit {
+	Hearts,
+	Diamonds,
+	Spades,
+	Clubs
+};
+
 class Card
 {
 private:
 	int value;
-	string suit;
+	enum_suit suit;
 	ConsoleManager console;
 
 public:
-	Card(string nSuit, int nValue);
+	Card(enum_suit nSuit, int nValue);
 
 	string getDisplayForm();
 
