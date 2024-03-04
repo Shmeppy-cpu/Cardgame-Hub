@@ -25,6 +25,8 @@ BACKGROUND
 */
 
 void ConsoleManager::displayText(string text, string colorCode) {
+	cout << endl;
+
 	int halfSize = size(text) / 2;
 	int delay;
 
@@ -52,20 +54,19 @@ void ConsoleManager::displayText(string text, string colorCode) {
 		Sleep(delay);
 		cout << colorCode << i;
 	}
-	cout << endl;
 }
 
 void ConsoleManager::displayAlongLine(vector<string> linesOfText) {
 	int spacePerText = 112 / size(linesOfText) + 0;
 
 	for (auto text : linesOfText) {
-		for (int i = 0; i < (spacePerText - (size(text) / 2)) / 2; i++) {
+		for (int i = 0; i < (spacePerText - (size(text))) / 2; i++) {
 			cout << " ";
 		}
 
 		cout << text;
 
-		for (int i = 0; i < (spacePerText - (size(text) / 2)) / 2; i++) {
+		for (int i = 0; i < (spacePerText - (size(text))) / 2; i++) {
 			cout << " ";
 		}
 	}

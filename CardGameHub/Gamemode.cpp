@@ -72,6 +72,7 @@ void Gamemode::listAllPlayersHands(int hiddenCards) {
 	printLogo();
 
 	//hiddenCards = 0;
+	
 	/*
 	for (auto& player : players) {
 		//hides any cards it needs to for all the players except the user
@@ -83,32 +84,34 @@ void Gamemode::listAllPlayersHands(int hiddenCards) {
 		}
 	}
 	*/
-
-	vector<string> playerNames;
-
-	for (auto player : getAllPlayers()) {
-		playerNames.push_back(player.getName());
-	}
-
-	console.displayAlongLine(playerNames);
-
-	vector<string> currentLine;
+	
+	vector<vector<string>> lines;
 
 	vector<vector<Card>> playerCards;
 
-	for (auto player : players) {
+	lines.push_back({});
+	for (auto player : getAllPlayers()) {
+		lines[0].push_back(player.getName() + " - " + player.handValueDisplay());
+		playerCards.push_back(player.getHand());
 	}
 
 	for (int i = 0; i < getMostHeldCards(); i++) {
-		currentLine.clear();
+		vector<string> newLine;
 
-		for (auto player : getAllPlayers()) {
-			Card currentCard = player.getTopCard();
-			currentLine.push_back(currentCard.getDisplayForm());
-			player.giveCard(currentCard);
+		for (vector<Card> cards : playerCards) {
+			if (i >= size(cards)) {
+				newLine.push_back("");
+			}
+			else {
+				newLine.push_back(cards[i].getDisplayForm());
+			}
 		}
 
-		console.displayAlongLine(currentLine);
+		lines.push_back(newLine);
+	}
+
+	for (auto line : lines) {
+		console.displayAlongLine(line);
 	}
 }
 

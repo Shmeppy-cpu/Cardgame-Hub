@@ -30,7 +30,7 @@ void player::listHand(int hiddenCards) {
 
 	vector<Card> temporaryHand;
 	int handSize = hand.size();
-	
+
 	for (int i = 0; i < handSize; i++) {
 		temporaryHand.push_back(hand.front());
 		hand.pop();
@@ -105,4 +105,32 @@ Card player::getTopCard() {
 
 int player::getSizeOfHand() {
 	return size(hand);
+}
+
+vector<Card> player::getHand() {
+	vector<Card> returnHand;
+
+	for (int i = 0; i <= size(hand) + 1; i++) {
+		returnHand.push_back(getTopCard());
+	}
+
+	for (auto card : returnHand) {
+		giveCard(card);
+	}
+
+	return returnHand;
+}
+
+string player::handValueDisplay() {
+	int value = getHandValue();
+	string display;
+
+	if (value > 21) {
+		display = "Bust!";
+	}
+	else {
+		display = to_string(value);
+	}
+
+	return display;
 }

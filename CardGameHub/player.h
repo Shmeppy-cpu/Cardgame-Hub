@@ -52,5 +52,9 @@ public:
 	Card getTopCard();
 
 	int getSizeOfHand();
+
+	vector<Card> getHand();
+
+	string handValueDisplay();
 };
 
