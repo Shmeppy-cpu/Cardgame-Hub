@@ -15,4 +15,7 @@ int main()
 	system("Color 60");
 
 	Blackjack blackjack;
+
+	ConsoleManager console;
+	//console.displayAlongLine({"Hello", "i am", "George"});
 }

@@ -3,6 +3,7 @@
 #include "deck.h"
 #include <vector>
 #include "ConsoleManager.h"
+#include "Card.h"
 
 class Gamemode
 {
@@ -37,6 +38,8 @@ protected:
 	void putPlayerUpForWinning(player player);
 
 	vector<player>& getPlayersUpForWinning();
+
+	int getMostHeldCards();
 
 private:
 	vector<player> players;

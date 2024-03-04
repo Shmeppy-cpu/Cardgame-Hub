@@ -16,6 +16,8 @@ private:
 public:
 	void displayText(string text, string colorCode);
 
+	void displayAlongLine(vector<string> linesOfText);
+
 	void clearConsole();
 };
 
