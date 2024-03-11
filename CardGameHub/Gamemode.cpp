@@ -46,14 +46,16 @@ void Gamemode::newHands() {
 	//Return all out players to the game
 	for (auto& player : bustPlayers) {
 		player.setOutStatus(false);
-		players.push_back(player);
+		//players.push_back(player);
 	}
 	bustPlayers.clear();
 
 	//Return all players cards to the deck
 	for (auto& player : players) {
-		for (int i = 0; i < player.getSizeOfHand(); i++) {
-			deck.returnCardToDeck(player.getTopCard());
+		if (player.getSizeOfHand() > 0) {
+			for (int i = 0; i <= player.getSizeOfHand(); i++) {
+				deck.returnCardToDeck(player.getTopCard());
+			}
 		}
 	}
 
@@ -94,6 +96,8 @@ void Gamemode::listAllPlayersHands(int hiddenCards) {
 		lines[0].push_back(player.getName() + " - " + player.handValueDisplay());
 		playerCards.push_back(player.getHand());
 	}
+
+	string lineText;
 
 	for (int i = 0; i < getMostHeldCards(); i++) {
 		vector<string> newLine;
