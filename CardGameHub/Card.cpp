@@ -1,7 +1,7 @@
 #include "Card.h"
 #include <string>
 #include "ConsoleManager.h"
-
+               
 using namespace std;
 
 Card::Card(enum_suit nSuit, int nValue) {
@@ -23,7 +23,7 @@ void Card::display() {
 		colorCode = "30";
 	}
 
-	console.displayText(">-" + getVisualValue() + " of " + getSuit() + "-<", colorCode);
+	console.displayText(getDisplayForm(), colorCode);
 }
 string Card::getSuit() {
 	switch (suit)
@@ -80,13 +80,5 @@ string Card::getVisualValue() {
 
 int Card::getNumValue() 
 {
-	if (value > 10) {
-		if (value == 14) {
-			value = 11;
-		}
-
-		value = 10;
-	}
-
 	return value;
 }

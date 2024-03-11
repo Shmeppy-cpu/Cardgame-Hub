@@ -6,16 +6,27 @@
 #include "Blackjack.h"
 #include "ConsoleManager.h"
 
-//...
+void testDeck();
 
 int main()
 {
-	srand(time(0));
+	srand(1);
+	//srand(time(0));
 
 	system("Color 60");
 
 	Blackjack blackjack;
 
-	ConsoleManager console;
-	//console.displayAlongLine({"Hello", "i am", "George"});
+	//testDeck();
+}
+
+void testDeck() {
+	Deck deck;
+	deck.fillDeck();
+	deck.shuffleDeck();
+
+	for (int i = 0; i < 52; i++) {
+		Card card = deck.getTopCard();
+		card.display();
+	}
 }
