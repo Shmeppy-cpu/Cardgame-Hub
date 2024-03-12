@@ -12,6 +12,11 @@ enum enum_suit {
 	Clubs
 };
 
+enum enum_valueRuleSet {
+	normal,
+	blackjack,
+};
+
 class Card
 {
 private:
@@ -30,6 +35,6 @@ public:
 
 	string getVisualValue();
 
-	int getNumValue();
+	int getNumValue(enum_valueRuleSet ruleSet);
 };
 

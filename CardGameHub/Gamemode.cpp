@@ -22,6 +22,7 @@ void Gamemode::setUpGamemode(int nPlayers, int nHandCount, string nPlayerOutText
 	dealer = &players[1];
 
 	mainPlayer = &players[0];
+	players[0].setAsMainPlayer();
 
 	dealer->setName("Dealer");
 	mainPlayer->setName("You");
@@ -90,6 +91,7 @@ void Gamemode::listAllPlayersHands(int hiddenCards) {
 	vector<vector<string>> lines;
 
 	vector<vector<Card>> playerCards;
+	vector<vector<string>> playerCardsVisual;
 
 	lines.push_back({});
 	for (auto player : getAllPlayers()) {
@@ -98,16 +100,37 @@ void Gamemode::listAllPlayersHands(int hiddenCards) {
 	}
 
 	string lineText;
+	int playersHiddenCards = 0;
+
+	int playerCardsIndex = 0;
+	for (vector<Card> cards : playerCards) {
+		playerCardsVisual.push_back({});
+		playersHiddenCards = hiddenCards;
+
+		for (Card card : cards) {
+			if (playersHiddenCards > 0 and playerCardsIndex != 0) {
+				playerCardsVisual[playerCardsIndex].push_back("-<HIDDEN>-");
+				playersHiddenCards--;
+			}
+			else {
+				playerCardsVisual[playerCardsIndex].push_back(card.getDisplayForm());
+			}
+
+			reverse(playerCardsVisual[playerCardsIndex].begin(), playerCardsVisual[playerCardsIndex].end());
+		}
+
+		playerCardsIndex++;
+	}
 
 	for (int i = 0; i < getMostHeldCards(); i++) {
 		vector<string> newLine;
 
-		for (vector<Card> cards : playerCards) {
+		for (vector<string> cards : playerCardsVisual) {
 			if (i >= size(cards)) {
 				newLine.push_back("");
 			}
 			else {
-				newLine.push_back(cards[i].getDisplayForm());
+				newLine.push_back(cards[i]);
 			}
 		}
 

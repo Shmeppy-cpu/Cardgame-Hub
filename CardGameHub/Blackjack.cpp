@@ -34,7 +34,7 @@ void Blackjack::checkForWin() {
 	player currentWinner = getPlayersUpForWinning()[0];
 
 	for (auto& player : getPlayersUpForWinning()) {
-		if (player.getHandValue() > currentWinner.getHandValue()) {
+		if (player.getHandValue(blackjack) > currentWinner.getHandValue(blackjack)) {
 			currentWinner = player;
 		}
 	}
@@ -75,12 +75,12 @@ void Blackjack::playersInput() {
 					Sleep(5000);
 
 					//Hits if NPCs value is lower than 14
-					if (player.getHandValue() <= 14)
+					if (player.getHandValue(blackjack) <= 14)
 					{
 						action = "h";
 					}
 					//Stands if it is higher than 17
-					else if (player.getHandValue() >= 18)
+					else if (player.getHandValue(blackjack) >= 18)
 					{
 						action = "s";
 					}
@@ -100,12 +100,12 @@ void Blackjack::playersInput() {
 				if (action == "h")
 				{
 					dealCard(player);
-					if (player.getHandValue() > 21)
+					if (player.getHandValue(blackjack) > 21)
 					{
 						bustPlayer(player);
 						action = "s";
 					}
-					else if (player.getHandValue() == 21)
+					else if (player.getHandValue(blackjack) == 21)
 					{
 						win(player);
 					}

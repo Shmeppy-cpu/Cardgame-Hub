@@ -20,7 +20,7 @@ void player::listHand(int hiddenCards) {
 	string extra;
 
 	if (getIsMainPlayer() == true or hiddenCards == 0 or isOut() == true) {
-		extra = to_string(getHandValue());
+		extra = to_string(getHandValue(lastUsedRuleSet));
 	}
 
 	if (out == true)
@@ -58,7 +58,9 @@ void player::setName(string nName) {
 	name = nName;
 }
 
-int player::getHandValue() {
+int player::getHandValue(enum_valueRuleSet ruleSet) {
+
+	lastUsedRuleSet = ruleSet;
 
 	int value = 0;
 
@@ -72,7 +74,7 @@ int player::getHandValue() {
 	}
 
 	for (Card card : temporaryHand) {
-		value += card.getNumValue();
+		value += card.getNumValue(ruleSet);
 
 		hand.push(card);
 	}
@@ -122,14 +124,23 @@ vector<Card> player::getHand() {
 }
 
 string player::handValueDisplay() {
-	int value = getHandValue();
+	int value = getHandValue(lastUsedRuleSet);
 	string display;
+	
+	if (isMainPlayer == true)
+	{
+		display = to_string(value);
+	}
+	else if (out == true) 
+	{
+		display = to_string(value);
 
-	if (value > 21) {
+	}
+	else if (value > 21) {
 		display = "Bust!";
 	}
 	else {
-		display = to_string(value);
+		display = "HIDDEN!";
 	}
 
 	return display;

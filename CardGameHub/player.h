@@ -16,6 +16,7 @@ private:
 	string name;
 	ConsoleManager console;
 	bool out = false;
+	enum_valueRuleSet lastUsedRuleSet = normal;
 
 	vector<string> names = {
 	"Issy",
@@ -39,7 +40,7 @@ public:
 
 	void setName(string nName);
 
-	int getHandValue();
+	int getHandValue(enum_valueRuleSet ruleSet);
 
 	string getName();
 

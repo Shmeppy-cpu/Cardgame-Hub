@@ -78,7 +78,29 @@ string Card::getVisualValue() {
 	return visualValue;
 }
 
-int Card::getNumValue() 
+int Card::getNumValue(enum_valueRuleSet ruleSet)
 {
-	return value;
+	int returnValue = 0; 
+
+	switch (ruleSet) {
+	case(normal):
+	{
+		returnValue = value;
+	}
+	case(blackjack):
+	{
+		if (value >= 10)
+		{
+			returnValue = 10;
+			if (value == 14) {
+				returnValue = 11;
+			}
+		}
+		else {
+			returnValue = value;
+		}
+	}
+	}
+
+	return returnValue;
 }

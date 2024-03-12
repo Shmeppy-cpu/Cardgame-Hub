@@ -11,7 +11,7 @@ void testDeck();
 int main()
 {
 	srand(1);
-	//srand(time(0));
+	srand(time(0));
 
 	system("Color 60");
 
