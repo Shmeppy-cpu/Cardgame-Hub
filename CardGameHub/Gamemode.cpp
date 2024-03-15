@@ -83,7 +83,6 @@ void Gamemode::listAllPlayersHands(int hiddenCards) {
 
 	//hiddenCards = 0;
 	
-	/*
 	for (auto& player : players) {
 		//hides any cards it needs to for all the players except the user
 		if (&player != mainPlayer) {
@@ -93,8 +92,8 @@ void Gamemode::listAllPlayersHands(int hiddenCards) {
 			player.listHand(0);
 		}
 	}
-	*/
 	
+	/*
 	vector<vector<string>> lines;
 
 	vector<vector<Card>> playerCards;
@@ -147,6 +146,8 @@ void Gamemode::listAllPlayersHands(int hiddenCards) {
 	for (auto line : lines) {
 		console.displayAlongLine(line);
 	}
+
+	*/
 }
 
 vector<player>& Gamemode::getAllPlayers() {

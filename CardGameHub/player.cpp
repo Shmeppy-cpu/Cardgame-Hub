@@ -15,9 +15,10 @@ void player::giveCard(Card nCard) {
 }
 
 void player::listHand(int hiddenCards) {
-	cout << "" << endl;
+	//cout << "" << endl;
 
 	string extra;
+	vector<string> handDisplayLine;
 
 	if (getIsMainPlayer() == true or hiddenCards == 0 or isOut() == true) {
 		extra = to_string(getHandValue(lastUsedRuleSet));
@@ -37,19 +38,24 @@ void player::listHand(int hiddenCards) {
 	}
 
 	console.displayText(name + "'s Hand: " + extra, "37");
+	cout << endl;
 
 	for (Card i : temporaryHand) {
 		if (hiddenCards > 0)
 		{
-			console.displayText(">-Hidden-<", "37");
+			handDisplayLine.push_back(">-Hidden-<");
+			//console.displayText(">-Hidden-<", "37");
 			hand.push(i);
 			hiddenCards--;
 		}
 		else {
-			i.display();
+			handDisplayLine.push_back(i.getDisplayForm());
+			//i.display();
 			hand.push(i);
 		}
 	}
+
+	console.displayAlongLine(handDisplayLine);
 
 	cout << "" << endl;
 }
