@@ -48,17 +48,24 @@ void Gamemode::newHands() {
 	for (auto& player : bustPlayers) {
 		player.setOutStatus(false);
 		//players.push_back(player);
+	}	
+	for (auto& player : playersUpForWinning) {
+		player.setOutStatus(false);
+		//players.push_back(player);
 	}
 	bustPlayers.clear();
+	playersUpForWinning.clear();
 
 	//Return all players cards to the deck
 	for (auto& player : players) {
 		if (player.getSizeOfHand() > 0) {
-			for (int i = 0; i <= player.getSizeOfHand(); i++) {
+			for (int i = 0; i < player.getSizeOfHand(); i++) {
 				deck.returnCardToDeck(player.getTopCard());
 			}
 		}
 	}
+
+	deck.shuffleDeck();
 
 	//Hand out the correct amount of cards to all players
 	if (size(players) > 0) {
@@ -122,7 +129,7 @@ void Gamemode::listAllPlayersHands(int hiddenCards) {
 		playerCardsIndex++;
 	}
 
-	for (int i = 0; i < getMostHeldCards(); i++) {
+	for (int i = 0; i <= getMostHeldCards(); i++) {
 		vector<string> newLine;
 
 		for (vector<string> cards : playerCardsVisual) {

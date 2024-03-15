@@ -16,6 +16,7 @@ private:
 	string name;
 	ConsoleManager console;
 	bool out = false;
+	bool upForWin = false;
 	enum_valueRuleSet lastUsedRuleSet = normal;
 
 	vector<string> names = {

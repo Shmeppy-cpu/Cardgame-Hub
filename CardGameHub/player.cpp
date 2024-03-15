@@ -126,8 +126,10 @@ vector<Card> player::getHand() {
 string player::handValueDisplay() {
 	int value = getHandValue(lastUsedRuleSet);
 	string display;
-	
-	if (isMainPlayer == true)
+	if (value > 21) {
+		display = "Bust! - " + to_string(value);
+	}
+	else if (isMainPlayer == true)
 	{
 		display = to_string(value);
 	}
@@ -136,11 +138,8 @@ string player::handValueDisplay() {
 		display = to_string(value);
 
 	}
-	else if (value > 21) {
-		display = "Bust!";
-	}
 	else {
-		display = "HIDDEN!";
+		display = "hidden!";
 	}
 
 	return display;

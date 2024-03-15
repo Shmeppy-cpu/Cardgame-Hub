@@ -24,6 +24,7 @@ Blackjack::Blackjack() {
 
 void Blackjack::newRound() {
 	newHands();
+	Sleep(1000);
 	listAllPlayersHands(1);
 	playersInput();
 
@@ -38,6 +39,8 @@ void Blackjack::checkForWin() {
 			currentWinner = player;
 		}
 	}
+
+	listAllPlayersHands(blackjack);
 
 	win(currentWinner);
 
@@ -62,8 +65,14 @@ void Blackjack::playersInput() {
 		{
 			action = "";
 
-			while (action != "s")
-			{
+			while (action != "s" or player.isOut() == true) {
+
+				if (player.getHandValue(blackjack) == 21)
+				{
+					putPlayerUpForWinning(player);
+					checkForWin();
+				}
+
 				if (&player == mainPlayer)
 				{
 					displayText(player.getName() + ", Do you want to stand(s)? or hit(h)?", "37");
@@ -100,24 +109,29 @@ void Blackjack::playersInput() {
 				if (action == "h")
 				{
 					dealCard(player);
+
+					cout << player.getHandValue(blackjack) << endl;
 					if (player.getHandValue(blackjack) > 21)
 					{
 						bustPlayer(player);
-						action = "s";
 					}
 					else if (player.getHandValue(blackjack) == 21)
 					{
-						win(player);
+						putPlayerUpForWinning(player);
+						checkForWin();
 					}
 
-					listAllPlayersHands(1);
+					listAllPlayersHands(blackjack);
 				}
 			}
 
-			if (player.isOut() == false)
+			if (action == "s")
 			{
 				putPlayerUpForWinning(player);
+				player.setOutStatus(true);
 			}
+
+			listAllPlayersHands(1);
 		}
 	}
 
