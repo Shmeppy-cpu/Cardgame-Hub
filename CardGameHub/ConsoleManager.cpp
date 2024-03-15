@@ -58,13 +58,15 @@ void ConsoleManager::displayText(string text, string colorCode) {
 
 void ConsoleManager::displayAlongLine(vector<string> linesOfText) {
 	int spacePerText = 112 / size(linesOfText) + 0;
+	string colorCode = "";
 
 	for (auto text : linesOfText) {
 		for (int i = 0; i < (spacePerText - (size(text))) / 2; i++) {
 			cout << " ";
 		}
 
-		cout << text;
+		//colorCode = "\033[" + colorCode + "m";
+		cout << colorCode << text;
 
 		for (int i = 0; i < (spacePerText - (size(text))) / 2; i++) {
 			cout << " ";

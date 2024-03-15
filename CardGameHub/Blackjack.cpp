@@ -110,7 +110,8 @@ void Blackjack::playersInput() {
 				{
 					dealCard(player);
 
-					cout << player.getHandValue(blackjack) << endl;
+					action = "s";
+
 					if (player.getHandValue(blackjack) > 21)
 					{
 						bustPlayer(player);
@@ -120,12 +121,12 @@ void Blackjack::playersInput() {
 						putPlayerUpForWinning(player);
 						checkForWin();
 					}
-
-					listAllPlayersHands(blackjack);
 				}
+
+				listAllPlayersHands(blackjack);
 			}
 
-			if (action == "s")
+			if (action == "s" and player.isOut() == false)
 			{
 				putPlayerUpForWinning(player);
 				player.setOutStatus(true);
