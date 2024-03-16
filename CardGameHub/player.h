@@ -47,7 +47,11 @@ public:
 
 	void setOutStatus(bool nInStatus);
 
+	void setPossibleWinStatis(bool nWinStatus);
+
 	bool isOut();
+
+	bool isUpForWinning();
 
 	void assignRandomName();
 

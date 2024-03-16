@@ -10,6 +10,7 @@ class Gamemode
 protected:
 	player* mainPlayer;
 	player* dealer;
+	ConsoleManager console;
 
 	bool gameRunning;
 
@@ -27,8 +28,6 @@ protected:
 
 	void bustPlayer(player& player);
 
-	vector<player>& getBustPlayers();
-
 	void dealCard(player& player);
 
 	void displayText(string text, string colorCode);
@@ -37,16 +36,11 @@ protected:
 
 	void putPlayerUpForWinning(player player);
 
-	vector<player>& getPlayersUpForWinning();
-
 	int getMostHeldCards();
 
 private:
 	vector<player> players;
-	vector<player> bustPlayers;
-	vector<player> playersUpForWinning;
 	Deck deck;
-	ConsoleManager console;
 
 	int howManyPlayers = 2;
 	int howManyCardsPerStartingHand = 2;

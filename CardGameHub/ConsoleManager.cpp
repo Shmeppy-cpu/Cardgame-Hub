@@ -54,18 +54,21 @@ void ConsoleManager::displayText(string text, string colorCode) {
 		Sleep(delay);
 		cout << colorCode << i;
 	}
+
+	cout << endl;
 }
 
-void ConsoleManager::displayAlongLine(vector<string> linesOfText) {
+void ConsoleManager::displayAlongLine(vector<string> linesOfText, vector<string> colorCodes) {
 	int spacePerText = 112 / size(linesOfText) + 0;
 	string colorCode = "";
+	int colorCodeIndex = 0;
 
 	for (auto text : linesOfText) {
 		for (int i = 0; i < (spacePerText - (size(text))) / 2; i++) {
 			cout << " ";
 		}
 
-		//colorCode = "\033[" + colorCode + "m";
+		colorCode = "\033[" + colorCodes[colorCodeIndex] + "m";
 		cout << colorCode << text;
 
 		for (int i = 0; i < (spacePerText - (size(text))) / 2; i++) {
@@ -74,6 +77,8 @@ void ConsoleManager::displayAlongLine(vector<string> linesOfText) {
 	}
 
 	cout << endl;
+
+	colorCodeIndex++;
 }
 
 void ConsoleManager::clearConsole() {

@@ -31,7 +31,7 @@ public:
 
 	void display();
 
-	string getSuit();
+	enum_suit getSuit();
 
 	string getVisualValue();
 

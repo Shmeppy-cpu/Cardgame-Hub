@@ -10,7 +10,35 @@ Card::Card(enum_suit nSuit, int nValue) {
 }
 
 string Card::getDisplayForm() {
-	return ">-" + getVisualValue() + " of " + getSuit() + "-<";
+	string suitString;
+
+	switch (suit) {
+	case(Hearts):
+	{
+		suitString = "Hearts";
+		break;
+	}
+	case(Diamonds):
+	{
+		suitString = "Diamonds";
+		break;
+	}
+	case(Clubs):
+	{
+		suitString = "Clubs";
+		break;
+	}
+	case(Spades):
+	{
+		suitString = "Spades";
+		break;
+	}
+	default:
+		suitString = "Unkown";
+		break;
+	}
+
+	return ">-" + getVisualValue() + " of " + suitString + "-<";
 }
 
 void Card::display() {
@@ -25,24 +53,8 @@ void Card::display() {
 
 	console.displayText(getDisplayForm(), colorCode);
 }
-string Card::getSuit() {
-	switch (suit)
-	{
-	case Hearts:
-		return "Hearts";
-		break;
-	case Diamonds:
-		return "Diamonds";
-		break;
-	case Spades:
-		return "Spades";
-		break;
-	case Clubs:
-		return "Clubs";
-		break;
-	default:
-		break;
-	}
+enum_suit Card::getSuit() {
+	return suit;
 }
 
 string Card::getVisualValue() {

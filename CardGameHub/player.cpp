@@ -19,6 +19,7 @@ void player::listHand(int hiddenCards) {
 
 	string extra;
 	vector<string> handDisplayLine;
+	vector<string> colorCodes;
 
 	if (getIsMainPlayer() == true or hiddenCards == 0 or isOut() == true) {
 		extra = to_string(getHandValue(lastUsedRuleSet));
@@ -26,7 +27,12 @@ void player::listHand(int hiddenCards) {
 
 	if (out == true)
 	{
-		extra = " out";
+		if (upForWin == true) {
+			extra = " standing" + to_string(getHandValue(lastUsedRuleSet));
+		}
+		else {
+			extra = " out";
+		}
 	}
 
 	vector<Card> temporaryHand;
@@ -44,18 +50,22 @@ void player::listHand(int hiddenCards) {
 		if (hiddenCards > 0)
 		{
 			handDisplayLine.push_back(">-Hidden-<");
+			colorCodes.push_back("37");
 			//console.displayText(">-Hidden-<", "37");
 			hand.push(i);
 			hiddenCards--;
 		}
 		else {
 			handDisplayLine.push_back(i.getDisplayForm());
+
+			colorCodes.push_back("37");
+
 			//i.display();
 			hand.push(i);
 		}
 	}
 
-	console.displayAlongLine(handDisplayLine);
+	console.displayAlongLine(handDisplayLine, colorCodes);
 
 	cout << "" << endl;
 }
@@ -96,8 +106,16 @@ void player::setOutStatus(bool nOutStatus) {
 	out = nOutStatus;
 }
 
+void player::setPossibleWinStatis(bool nWinStatus) {
+	upForWin = nWinStatus;
+}
+
 bool player::isOut() {
 	return out;
+}
+
+bool player::isUpForWinning() {
+	return upForWin;
 }
 
 void player::assignRandomName() {

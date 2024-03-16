@@ -14,5 +14,7 @@ public:
 	void checkForWin();
 
 	void playersInput();
+
+	void displayPlayersHands(int shownCards);
 };
 

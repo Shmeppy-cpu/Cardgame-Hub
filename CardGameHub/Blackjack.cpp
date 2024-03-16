@@ -23,26 +23,29 @@ Blackjack::Blackjack() {
 }
 
 void Blackjack::newRound() {
+	gameRunning = true;
 	newHands();
-	Sleep(1000);
-	listAllPlayersHands(1);
+	displayPlayersHands(1);
 	playersInput();
 
 	hits = 0;
 }
 
 void Blackjack::checkForWin() {
-	player currentWinner = getPlayersUpForWinning()[0];
+	player currentWinner;
 
-	for (auto& player : getPlayersUpForWinning()) {
-		if (player.getHandValue(blackjack) > currentWinner.getHandValue(blackjack)) {
+	for (player& player : getAllPlayers()) 
+	{
+		if (player.isUpForWinning() == true and player.getHandValue(blackjack) > currentWinner.getHandValue(blackjack))
+		{
 			currentWinner = player;
 		}
 	}
 
-	listAllPlayersHands(blackjack);
+	displayPlayersHands(1);
 
 	win(currentWinner);
+	gameRunning = false;
 
 	string playAgain;
 	displayText("Do you want to play again? y/n", "37");
@@ -65,7 +68,7 @@ void Blackjack::playersInput() {
 		{
 			action = "";
 
-			while (action != "s" or player.isOut() == true) {
+			while (action != "s") {
 
 				if (player.getHandValue(blackjack) == 21)
 				{
@@ -123,7 +126,7 @@ void Blackjack::playersInput() {
 					}
 				}
 
-				listAllPlayersHands(blackjack);
+				displayPlayersHands(1);
 			}
 
 			if (action == "s" and player.isOut() == false)
@@ -132,10 +135,83 @@ void Blackjack::playersInput() {
 				player.setOutStatus(true);
 			}
 
-			listAllPlayersHands(1);
+			displayPlayersHands(1);
 		}
 	}
 
 	checkForWin();
+}
+
+void Blackjack::displayPlayersHands(int shownCards) {
+	console.clearConsole();
+	printLogo();
+
+	//creates string to store information shown after the players name
+	string playerInfo;
+
+	for (player player : getAllPlayers()) {
+		//starts off player info with the players name
+		playerInfo = ">-" + player.getName();
+
+		if (player.isUpForWinning() == true)
+		{
+			//if the player has stood, display that next to their name with their hand value if the game is over or the player is the user, hidden if the game is still on
+			if (gameRunning == true and player.getIsMainPlayer() == false)
+			{
+				playerInfo += " -  stood - HIDDEN ";
+			}
+			else
+			{
+				playerInfo += " -  stood -" + to_string(player.getHandValue(blackjack));
+			}
+		}
+		else if (player.isOut() == true)
+		{
+			//if the player is out display that next to their name with their hand value
+			playerInfo += " - bust -" + to_string(player.getHandValue(blackjack));
+		}
+		else
+		{
+			//displays the players hand as hidden if nothing else is true
+			playerInfo += " - " + to_string(player.getHandValue(blackjack));
+		}
+
+		playerInfo += "-<";
+
+		 
+		console.displayText(playerInfo, "37");
+
+		vector<string> cardsAsText;
+		vector<string> colorCodesOfCards;
+
+		int hiddenCards;
+
+		if (player.getIsMainPlayer() == true or gameRunning == false)
+		{
+			hiddenCards = 0;
+		}
+		else
+		{
+			hiddenCards = player.getSizeOfHand() - shownCards;
+		}
+
+		for (Card card : player.getHand())
+		{
+
+			if (hiddenCards > 0)
+			{
+				cardsAsText.push_back(">-HIDDEN-<");
+				hiddenCards--;
+			}
+			else
+			{
+				cardsAsText.push_back(card.getDisplayForm());
+			}
+
+			colorCodesOfCards.push_back("37");
+		}
+
+		console.displayAlongLine(cardsAsText, colorCodesOfCards);
+	}
 }
 

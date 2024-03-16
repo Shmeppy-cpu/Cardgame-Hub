@@ -45,19 +45,13 @@ void Gamemode::newHands() {
 	gameRunning = true;
 
 	//Return all out players to the game
-	for (auto& player : bustPlayers) {
+	for (player& player : getAllPlayers()) {
 		player.setOutStatus(false);
-		//players.push_back(player);
-	}	
-	for (auto& player : playersUpForWinning) {
-		player.setOutStatus(false);
-		//players.push_back(player);
+		player.setPossibleWinStatis(false);
 	}
-	bustPlayers.clear();
-	playersUpForWinning.clear();
 
 	//Return all players cards to the deck
-	for (auto& player : players) {
+	for (player& player : players) {
 		if (player.getSizeOfHand() > 0) {
 			for (int i = 0; i < player.getSizeOfHand(); i++) {
 				deck.returnCardToDeck(player.getTopCard());
@@ -156,13 +150,7 @@ vector<player>& Gamemode::getAllPlayers() {
 
 void Gamemode::bustPlayer(player& player) {
 	console.displayText(player.getName() + playerOutText, "37");
-	bustPlayers.push_back(player);
-
 	player.setOutStatus(true);
-}
-
-vector<player>& Gamemode::getBustPlayers() {
-	return bustPlayers;
 }
 
 void Gamemode::dealCard(player& player) {
@@ -174,18 +162,13 @@ void Gamemode::displayText(string text, string colorCode) {
 }
 
 void Gamemode::win(player winnner) {
-	gameRunning = false;
-	listAllPlayersHands(0);
+	//listAllPlayersHands(0);
 
 	console.displayText(winnner.getName() + " won!", "37");
 }
 
 void Gamemode::putPlayerUpForWinning(player player) {
-	playersUpForWinning.push_back(player);
-}
-
-vector<player>& Gamemode::getPlayersUpForWinning() {
-	return playersUpForWinning;
+	player.setPossibleWinStatis(true);
 }
 
 int Gamemode::getMostHeldCards() {
