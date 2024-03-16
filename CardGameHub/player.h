@@ -47,7 +47,7 @@ public:
 
 	void setOutStatus(bool nInStatus);
 
-	void setPossibleWinStatis(bool nWinStatus);
+	void setPossibleWinStatus(bool nWinStatus);
 
 	bool isOut();
 

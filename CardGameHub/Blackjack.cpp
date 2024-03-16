@@ -32,20 +32,22 @@ void Blackjack::newRound() {
 }
 
 void Blackjack::checkForWin() {
+	gameRunning = false;
 	player currentWinner;
+	int currentHighestHand = 0;
 
-	for (player& player : getAllPlayers()) 
+	for (player player : getAllPlayers()) 
 	{
-		if (player.isUpForWinning() == true and player.getHandValue(blackjack) > currentWinner.getHandValue(blackjack))
+		if (player.isUpForWinning() == true and player.getHandValue(blackjack) > currentHighestHand)
 		{
 			currentWinner = player;
+			currentHighestHand = player.getHandValue(blackjack);
 		}
 	}
 
 	displayPlayersHands(1);
 
 	win(currentWinner);
-	gameRunning = false;
 
 	string playAgain;
 	displayText("Do you want to play again? y/n", "37");
@@ -69,7 +71,6 @@ void Blackjack::playersInput() {
 			action = "";
 
 			while (action != "s") {
-
 				if (player.getHandValue(blackjack) == 21)
 				{
 					putPlayerUpForWinning(player);
@@ -113,26 +114,27 @@ void Blackjack::playersInput() {
 				{
 					dealCard(player);
 
-					action = "s";
-
 					if (player.getHandValue(blackjack) > 21)
 					{
 						bustPlayer(player);
+						action = "s";
 					}
 					else if (player.getHandValue(blackjack) == 21)
 					{
-						putPlayerUpForWinning(player);
+						//putPlayerUpForWinning(player);
+						player.setPossibleWinStatus(true);
 						checkForWin();
+						action = "s";
 					}
-				}
 
-				displayPlayersHands(1);
+					displayPlayersHands(1);
+				}
 			}
 
 			if (action == "s" and player.isOut() == false)
 			{
-				putPlayerUpForWinning(player);
-				player.setOutStatus(true);
+				//putPlayerUpForWinning(player);
+				player.setPossibleWinStatus(true);
 			}
 
 			displayPlayersHands(1);
@@ -153,27 +155,29 @@ void Blackjack::displayPlayersHands(int shownCards) {
 		//starts off player info with the players name
 		playerInfo = ">-" + player.getName();
 
-		if (player.isUpForWinning() == true)
-		{
-			//if the player has stood, display that next to their name with their hand value if the game is over or the player is the user, hidden if the game is still on
-			if (gameRunning == true and player.getIsMainPlayer() == false)
-			{
-				playerInfo += " -  stood - HIDDEN ";
-			}
-			else
-			{
-				playerInfo += " -  stood -" + to_string(player.getHandValue(blackjack));
-			}
+		if (gameRunning == false) {
+			playerInfo += " -" + to_string(player.getHandValue(blackjack));
 		}
-		else if (player.isOut() == true)
-		{
-			//if the player is out display that next to their name with their hand value
-			playerInfo += " - bust -" + to_string(player.getHandValue(blackjack));
-		}
-		else
-		{
-			//displays the players hand as hidden if nothing else is true
-			playerInfo += " - " + to_string(player.getHandValue(blackjack));
+		else {
+			if (player.isUpForWinning()) {
+				if (player.getIsMainPlayer()) {
+					playerInfo += " -stood -" + to_string(player.getHandValue(blackjack));
+				}
+				else {
+					playerInfo += " -stood -HIDDEN";
+				}
+			}
+			else if (player.isOut()) {
+				playerInfo += " -bust -" + to_string(player.getHandValue(blackjack));
+			}
+			else {
+				if (player.getIsMainPlayer()) {
+					playerInfo += " -" + to_string(player.getHandValue(blackjack));
+				}
+				else {
+					playerInfo += " -HIDDEN";
+				}
+			}
 		}
 
 		playerInfo += "-<";

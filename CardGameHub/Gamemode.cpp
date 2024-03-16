@@ -47,7 +47,7 @@ void Gamemode::newHands() {
 	//Return all out players to the game
 	for (player& player : getAllPlayers()) {
 		player.setOutStatus(false);
-		player.setPossibleWinStatis(false);
+		player.setPossibleWinStatus(false);
 	}
 
 	//Return all players cards to the deck
@@ -168,7 +168,7 @@ void Gamemode::win(player winnner) {
 }
 
 void Gamemode::putPlayerUpForWinning(player player) {
-	player.setPossibleWinStatis(true);
+	player.setPossibleWinStatus(true);
 }
 
 int Gamemode::getMostHeldCards() {

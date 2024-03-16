@@ -106,7 +106,7 @@ void player::setOutStatus(bool nOutStatus) {
 	out = nOutStatus;
 }
 
-void player::setPossibleWinStatis(bool nWinStatus) {
+void player::setPossibleWinStatus(bool nWinStatus) {
 	upForWin = nWinStatus;
 }
 
