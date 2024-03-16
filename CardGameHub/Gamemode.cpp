@@ -51,11 +51,11 @@ void Gamemode::newHands() {
 	}
 
 	//Return all players cards to the deck
+	int handSize;
 	for (player& player : players) {
-		if (player.getSizeOfHand() > 0) {
-			for (int i = 0; i < player.getSizeOfHand(); i++) {
-				deck.returnCardToDeck(player.getTopCard());
-			}
+		handSize = player.getSizeOfHand();
+		for (int i = 0; i < handSize; i++) {
+			deck.returnCardToDeck(player.getTopCard());
 		}
 	}
 
@@ -63,7 +63,7 @@ void Gamemode::newHands() {
 
 	//Hand out the correct amount of cards to all players
 	if (size(players) > 0) {
-		for (auto& player : players) {
+		for (player& player : players) {
 			for (int i = 0; i < howManyCardsPerStartingHand; i++) {
 				dealCard(player);
 			}

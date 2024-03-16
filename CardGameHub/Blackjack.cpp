@@ -201,7 +201,6 @@ void Blackjack::displayPlayersHands(int shownCards) {
 
 		for (Card card : player.getHand())
 		{
-
 			if (hiddenCards > 0)
 			{
 				cardsAsText.push_back(">-HIDDEN-<");

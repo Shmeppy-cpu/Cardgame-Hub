@@ -135,12 +135,13 @@ int player::getSizeOfHand() {
 
 vector<Card> player::getHand() {
 	vector<Card> returnHand;
-
-	for (int i = 0; i <= size(hand) + 1; i++) {
+	int handSize = getSizeOfHand();
+ 
+	for (int i = 0; i < handSize; i++) {
 		returnHand.push_back(getTopCard());
 	}
 
-	for (auto card : returnHand) {
+	for (Card card : returnHand) {
 		giveCard(card);
 	}
 
