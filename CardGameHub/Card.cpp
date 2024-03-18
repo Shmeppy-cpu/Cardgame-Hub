@@ -38,7 +38,7 @@ string Card::getDisplayForm() {
 		break;
 	}
 
-	return ">-" + getVisualValue() + " of " + suitString + "-<";
+	return "[" + getVisualValue() + "-" + suitString + "]";
 }
 
 void Card::display() {

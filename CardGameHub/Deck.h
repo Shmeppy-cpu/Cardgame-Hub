@@ -12,7 +12,7 @@ private:
 	ConsoleManager console;
 
 public:
-	void fillDeck();
+	Deck();
 
 	void shuffleDeck();
 

@@ -38,6 +38,8 @@ protected:
 
 	int getMostHeldCards();
 
+	Deck& getDeck();
+
 private:
 	vector<player> players;
 	Deck deck;

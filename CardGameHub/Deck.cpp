@@ -1,7 +1,7 @@
 #include "Deck.h"
 #include "ConsoleManager.h"
 
-void Deck::fillDeck() {
+Deck::Deck() {
 	enum_suit suits[4] = { Hearts, Diamonds, Spades, Clubs };
 
 	for (int s = 0; s <= 3; s++) {

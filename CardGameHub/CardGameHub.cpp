@@ -5,6 +5,7 @@
 #include "Gamemode.h"
 #include "Blackjack.h"
 #include "ConsoleManager.h"
+#include "PyramidSolitaire.h"
 
 void testDeck();
 
@@ -15,14 +16,16 @@ int main()
 
 	system("Color 60");
 
-	Blackjack blackjack;
+	//Blackjack blackjack;
+
+	PyramidSolitaire pyramid;
 
 	//testDeck();
 }
 
 void testDeck() {
 	Deck deck;
-	deck.fillDeck();
+	//deck.fillDeck();
 	deck.shuffleDeck();
 
 	for (int i = 0; i < 52; i++) {

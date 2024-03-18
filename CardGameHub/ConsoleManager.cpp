@@ -24,6 +24,12 @@ BACKGROUND
 
 */
 
+ConsoleManager::ConsoleManager() {
+	Font.FontWeight = 700;
+
+	//SetCurrentConsoleFontEx(ReadConsoleOutput(), NULL, &Font);
+}
+
 void ConsoleManager::displayText(string text, string colorCode) {
 	cout << endl;
 

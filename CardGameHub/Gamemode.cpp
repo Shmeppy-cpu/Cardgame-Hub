@@ -9,7 +9,6 @@ void Gamemode::setUpGamemode(int nPlayers, int nHandCount, string nPlayerOutText
 	howManyCardsPerStartingHand = nHandCount;
 	playerOutText = nPlayerOutText;
 
-	deck.fillDeck();
 	deck.shuffleDeck();
 
 	for (int i = 0; i < howManyPlayers; i++) {
@@ -19,14 +18,15 @@ void Gamemode::setUpGamemode(int nPlayers, int nHandCount, string nPlayerOutText
 	}
 
 	//Set the dealer and player pointers to the first 2 players in the list of players
-	dealer = &players[1];
-
-	mainPlayer = &players[0];
 	players[0].setAsMainPlayer();
-
-	dealer->setName("Dealer");
+	mainPlayer = &players[0];
 	mainPlayer->setName("You");
-	mainPlayer->setAsMainPlayer();
+
+	if (howManyPlayers > 1) {
+		dealer = &players[1];
+
+		dealer->setName("Dealer");
+	}
 
 	logo = nLogo;
 }
@@ -181,4 +181,8 @@ int Gamemode::getMostHeldCards() {
 	}
 
 	return mostHeldCards;
+}
+
+Deck& Gamemode::getDeck() {
+	return deck;
 }
