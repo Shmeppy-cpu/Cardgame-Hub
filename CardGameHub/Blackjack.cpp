@@ -204,17 +204,19 @@ void Blackjack::displayPlayersHands(int shownCards) {
 			if (hiddenCards > 0)
 			{
 				cardsAsText.push_back(">-HIDDEN-<");
+				colorCodesOfCards.push_back("37");
 				hiddenCards--;
 			}
 			else
 			{
 				cardsAsText.push_back(card.getDisplayForm());
+				colorCodesOfCards.push_back(card.getColorCode());
 			}
 
-			colorCodesOfCards.push_back("37");
 		}
 
-		console.displayAlongLine(cardsAsText, colorCodesOfCards);
+		//console.displayAlongLine(cardsAsText, colorCodesOfCards);
+		console.displayAlongLineWithSetGap(cardsAsText, colorCodesOfCards, 2);
 	}
 }
 

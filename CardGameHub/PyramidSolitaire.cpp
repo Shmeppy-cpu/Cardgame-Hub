@@ -40,6 +40,7 @@ void PyramidSolitaire::buildPyramid() {
 }
 
 void PyramidSolitaire::displayPyramid() {
+	cout << endl;
 	vector<string> line;
 	vector<string> colors;
 
@@ -49,7 +50,7 @@ void PyramidSolitaire::displayPyramid() {
 
 		for (Card card : Row) {
 			line.push_back(card.getDisplayForm());
-			colors.push_back("37");
+			colors.push_back(card.getColorCode());
 		}
 
 		//console.displayAlongLine(line, colors);

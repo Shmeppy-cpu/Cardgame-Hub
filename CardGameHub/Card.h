@@ -36,5 +36,7 @@ public:
 	string getVisualValue();
 
 	int getNumValue(enum_valueRuleSet ruleSet);
+
+	string getColorCode();
 };
 

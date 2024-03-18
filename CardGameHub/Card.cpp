@@ -66,6 +66,7 @@ void Card::display() {
 
 	console.displayText(getDisplayForm(), colorCode);
 }
+
 enum_suit Card::getSuit() {
 	return suit;
 }
@@ -128,4 +129,21 @@ int Card::getNumValue(enum_valueRuleSet ruleSet)
 	}
 
 	return returnValue;
+}
+
+string Card::getColorCode() {
+	switch (suit) {
+	case(Hearts): {
+		return "31";
+	}
+	case(Diamonds): {
+		return "31";
+	}
+	case(Spades): {
+		return "30";
+	}
+	case(Clubs): {
+		return "30";
+	}
+	}
 }
