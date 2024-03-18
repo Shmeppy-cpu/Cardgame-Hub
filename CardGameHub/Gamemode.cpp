@@ -34,7 +34,6 @@ void Gamemode::setUpGamemode(int nPlayers, int nHandCount, string nPlayerOutText
 void Gamemode::printLogo() {
 	cout << "\033[37m" << logo << endl;
 
-	cout << endl;
 	for (int i = 0; i < 120; i++) {
 		cout << "_";
 	}

@@ -44,16 +44,29 @@ void PyramidSolitaire::displayPyramid() {
 	vector<string> line;
 	vector<string> colors;
 
+	vector<string> inputs;
+
+	int rowI = 0;
+	int cardI = 0;
+
 	for (vector<Card> Row : Pyramid) {
+		cardI = 0;
 		line.clear();
 		colors.clear();
+		inputs.clear();
 
 		for (Card card : Row) {
 			line.push_back(card.getDisplayForm());
 			colors.push_back(card.getColorCode());
+
+			inputs.push_back("-----" + to_string(rowI) + "&" + to_string(cardI) + "------");
+
+			cardI++;
 		}
 
-		//console.displayAlongLine(line, colors);
 		console.displayAlongLineWithSetGap(line, colors, 2);
+		console.displayAlongLineWithSetGap(inputs, colors, 2);
+
+		rowI++;
 	}
 }
