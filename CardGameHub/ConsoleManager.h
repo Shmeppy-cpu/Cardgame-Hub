@@ -23,6 +23,8 @@ public:
 
 	void displayAlongLine(vector<string> linesOfText, vector<string> colorCodes);
 
+	void displayAlongLineWithSetGap(vector<string> linesOfText, vector<string> colorCodes, int gap);
+
 	void clearConsole();
 };
 

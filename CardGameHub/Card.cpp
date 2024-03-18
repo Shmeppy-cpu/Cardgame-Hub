@@ -38,7 +38,20 @@ string Card::getDisplayForm() {
 		break;
 	}
 
-	return "[" + getVisualValue() + "-" + suitString + "]";
+	//Queen-Diamonds
+
+	string visualValue = getVisualValue() + "-" + suitString;
+
+	for (int i = 0; i < 7 - (size(visualValue) / 2); i++) {
+		visualValue = "-" + visualValue;
+	}
+	for (int i = 0; i < 7 - (size(visualValue) / 2); i++) {
+		visualValue = visualValue + "-";
+	}
+
+	visualValue = "[" + visualValue + "]";
+
+	return visualValue;
 }
 
 void Card::display() {

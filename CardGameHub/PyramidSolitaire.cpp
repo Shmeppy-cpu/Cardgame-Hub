@@ -52,6 +52,7 @@ void PyramidSolitaire::displayPyramid() {
 			colors.push_back("37");
 		}
 
-		console.displayAlongLine(line, colors);
+		//console.displayAlongLine(line, colors);
+		console.displayAlongLineWithSetGap(line, colors, 2);
 	}
 }

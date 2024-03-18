@@ -80,11 +80,39 @@ void ConsoleManager::displayAlongLine(vector<string> linesOfText, vector<string>
 		for (int i = 0; i < (spacePerText - (size(text))) / 2; i++) {
 			cout << " ";
 		}
+
+		colorCodeIndex++;
 	}
 
 	cout << endl;
+}
 
-	colorCodeIndex++;
+void ConsoleManager::displayAlongLineWithSetGap(vector<string> linesOfText, vector<string> colorCodes, int gap) {
+	int spacePerText = 112 / size(linesOfText) + 0;
+	string colorCode = "";
+	int colorCodeIndex = 0;
+
+	int sizeOfString = 0;
+	for (string text : linesOfText) {
+		sizeOfString += size(text) + gap;
+	}
+
+	for (int i = 0; i < (56 - sizeOfString / 2) + gap; i++) {
+		cout << " ";
+	}
+		 
+	for (auto text : linesOfText) {
+		colorCode = "\033[" + colorCodes[colorCodeIndex] + "m";
+		cout << colorCode << text;
+
+		for (int i = 0; i < gap; i++) {
+			cout << " ";
+		}
+
+		colorCodeIndex++;
+	}
+
+	cout << endl;
 }
 
 void ConsoleManager::clearConsole() {
