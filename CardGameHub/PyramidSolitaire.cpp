@@ -103,27 +103,33 @@ void PyramidSolitaire::playerInput() {
 		getline(cin, playerInp);
 
 		if (playerInp != "") {
+			//cout << matchCards(playerInp, currentCard) << endl;
+
 			switch (matchCards(playerInp, currentCard))
 			{
 			case(matchedBoth):
 			{
 				newCard = true;
 				returnCurrentCardToDeck = false;
+				break;
 			}
 			case(matchedPlayerCard):
 			{
 				newCard = true;
 				returnCurrentCardToDeck = false;
+				break;
 			}
 			case(matchedPyramidCard):
 			{
 				newCard = false;
 				returnCurrentCardToDeck = false;
+				break;
 			}
 			case(noMatch):
 			{
 				newCard = false;
 				returnCurrentCardToDeck = false;
+				break;
 			}
 				break;
 			}
@@ -137,7 +143,7 @@ void PyramidSolitaire::playerInput() {
 
 match_state PyramidSolitaire::matchCards(string cardCode, Card playerCard)
 {
-	match_state matchState;
+	match_state matchState = noMatch;
 
 	int row = stoi(cardCode.substr(0, 1), 0);
 	int collum = stoi(cardCode.substr(1, 2), 0);
