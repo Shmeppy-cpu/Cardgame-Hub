@@ -16,10 +16,11 @@ PyramidSolitaire::PyramidSolitaire() {
 
 	newGame();
 	displayPyramid();
+	playerInput();
 }
 
 void PyramidSolitaire::newGame() {
-	printLogo();
+	gameRunning = true;
 
 	buildPyramid();
 }
@@ -40,6 +41,8 @@ void PyramidSolitaire::buildPyramid() {
 }
 
 void PyramidSolitaire::displayPyramid() {
+	printLogo();
+
 	cout << endl;
 	vector<string> line;
 	vector<string> colorsOfCards;
@@ -71,5 +74,27 @@ void PyramidSolitaire::displayPyramid() {
 		console.displayAlongLineWithSetGap(inputs, colorsOfInputs, 3);
 
 		rowI++;
+	}
+
+	cout << endl;
+}
+
+void PyramidSolitaire::playerInput() {
+	Card currentCard(Placeholder, 1);
+	string playerInp;
+
+	while (gameRunning == true) {
+
+		if (currentCard.getSuit() != Placeholder) 
+		{
+			returnCardToDeck(currentCard);
+		}
+
+		console.clearConsole();
+		displayPyramid();
+
+		currentCard = getDeckTopCard();
+		console.displayAlongLineWithSetGap({ currentCard.getDisplayForm(), "code below card to try and match, c for new card " }, { currentCard.getColorCode(), "37" }, 5);
+		getline(cin, playerInp);
 	}
 }

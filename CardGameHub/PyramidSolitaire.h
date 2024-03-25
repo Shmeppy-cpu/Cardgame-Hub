@@ -15,5 +15,9 @@ private:
 	void buildPyramid();
 
 	void displayPyramid();
+
+	void playerInput();
+
+	void pullCard();
 };
 

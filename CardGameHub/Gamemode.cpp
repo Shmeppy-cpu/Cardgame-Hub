@@ -185,3 +185,11 @@ int Gamemode::getMostHeldCards() {
 Deck& Gamemode::getDeck() {
 	return deck;
 }
+
+Card Gamemode::getDeckTopCard() {
+	return deck.getTopCard();
+}
+
+void Gamemode::returnCardToDeck(Card card) {
+	deck.returnCardToDeck(card);
+}

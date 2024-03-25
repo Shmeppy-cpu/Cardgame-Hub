@@ -40,6 +40,10 @@ protected:
 
 	Deck& getDeck();
 
+	Card getDeckTopCard();
+
+	void returnCardToDeck(Card card);
+
 private:
 	vector<player> players;
 	Deck deck;

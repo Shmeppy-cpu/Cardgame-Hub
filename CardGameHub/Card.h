@@ -6,6 +6,7 @@
 using namespace std;
 
 enum enum_suit {
+	Placeholder,
 	Hearts,
 	Diamonds,
 	Spades,

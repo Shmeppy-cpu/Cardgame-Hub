@@ -40,7 +40,7 @@ string Card::getDisplayForm() {
 
 	//Queen-Diamonds
 
-	string visualValue = getVisualValue() + "-" + suitString;
+	string visualValue = getVisualValue() + "^" + suitString;
 
 	for (int i = 0; i < 6 - (size(visualValue) / 2); i++) {
 		visualValue = "-" + visualValue;
