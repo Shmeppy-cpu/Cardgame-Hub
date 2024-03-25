@@ -30,14 +30,18 @@ void PyramidSolitaire::buildPyramid() {
 	int rows = 7;
 	for (int collum = 0; collum < 7; collum++) {
 		Pyramid.push_back({});
+		clearedPyramid.push_back({});
+
 		for (int row = rows; row > 0; row--) {
 			Pyramid[collum].push_back(getDeck().getTopCard());
+			clearedPyramid[collum].push_back(false);
 		}
 
 		rows--;
 	}
 
 	reverse(Pyramid.begin(), Pyramid.end());
+	reverse(clearedPyramid.begin(), clearedPyramid.end());
 }
 
 void PyramidSolitaire::displayPyramid() {
@@ -53,7 +57,6 @@ void PyramidSolitaire::displayPyramid() {
 	int rowI = 0;
 	int cardI = 0;
 
-	/*
 	for (vector<Card> Row : Pyramid) {
 		cardI = 0;
 		line.clear();
@@ -62,11 +65,21 @@ void PyramidSolitaire::displayPyramid() {
 		inputs.clear();
 
 		for (Card card : Row) {
-			line.push_back(card.getDisplayForm());
-			colorsOfCards.push_back(card.getColorCode());
+			if (clearedPyramid[rowI][cardI] == true)
+			{
+				line.push_back("    .    ");
+				colorsOfCards.push_back("37");
 
-			inputs.push_back("    <" + to_string(rowI) + "" + to_string(cardI) + ">    ");
-			colorsOfInputs.push_back("37");
+				inputs.push_back("       ");
+				colorsOfInputs.push_back("37");
+			}
+			else {
+				line.push_back(card.getDisplayForm());
+				colorsOfCards.push_back(card.getColorCode());
+
+				inputs.push_back("    <" + to_string(rowI) + "" + to_string(cardI) + ">    ");
+				colorsOfInputs.push_back("37");
+			}
 
 			cardI++;
 		}
@@ -75,36 +88,6 @@ void PyramidSolitaire::displayPyramid() {
 		console.displayAlongLineWithSetGap(inputs, colorsOfInputs, 3);
 
 		rowI++;
-	}
-	*/
-
-	for (int row = 0; row < 7; row++) {
-		line.clear();
-		colorsOfCards.clear();
-		colorsOfInputs.clear();
-		inputs.clear();
-
-		for (int collum = 0; collum < row + 1; collum++) {
-			if (collum < size(Pyramid[row]))
-			{
-				line.push_back(Pyramid[row][collum].getDisplayForm());
-				colorsOfCards.push_back(Pyramid[row][collum].getColorCode());
-
-				inputs.push_back("    <" + to_string(row) + "" + to_string(collum) + ">    ");
-				colorsOfInputs.push_back("37");
-			}
-			else 
-			{
-				line.push_back("   -   ");
-				colorsOfCards.push_back("37");
-
-				inputs.push_back("       ");
-				colorsOfInputs.push_back("37");
-			}
-		}
-
-		console.displayAlongLineWithSetGap(line, colorsOfCards, 2);
-		console.displayAlongLineWithSetGap(inputs, colorsOfInputs, 3);
 	}
 
 	cout << endl;
@@ -183,9 +166,7 @@ match_state PyramidSolitaire::matchCards(string cardCode, Card playerCard)
 	int row = stoi(cardCode.substr(0, 1), 0);
 	int collum = stoi(cardCode.substr(1, 2), 0);
 
-	//cout << "Row: " << row << " Collum: " << collum << endl;
-
-	if ((row >= 0 and row <= 6) and (collum >= 0 and collum <= row )) 
+	if (canCardBeMatched(row, collum))
 	{
 		Card card = Pyramid[row][collum];
 
@@ -224,7 +205,13 @@ match_state PyramidSolitaire::matchCards(string cardCode, Card playerCard)
 	}
 	else
 	{
-		console.displayText("[ No card at " + cardCode + " ]", "37");
+		if (row < 7 and collum <= row) {
+			Card card = Pyramid[row][collum];
+			console.displayAlongLineWithSetGap({ "Can't match with ", card.getDisplayForm(), " yet..." }, { "37", card.getColorCode(), "37" }, 2);
+		}
+		else {
+			console.displayText("No card there to match with", "37");
+		}
 	}
 
 	//Card card = Pyramid[cardCode[0]][cardCode[1]];
@@ -235,6 +222,27 @@ match_state PyramidSolitaire::matchCards(string cardCode, Card playerCard)
 }
 
 void PyramidSolitaire::removeCardFromPyramid(int row, int collum) {
-	Pyramid[row].erase(Pyramid[row].begin() + collum);
+	//Pyramid[row].erase(Pyramid[row].begin() + collum);
 	//Pyramid[row][collum].setAsPlaceholder();
+
+	clearedPyramid[row][collum] = true;
+}
+
+bool PyramidSolitaire::canCardBeMatched(int row, int collum) 
+{
+	if (row == 6 and collum <= 6)
+	{
+		return true;
+	}
+	else if (row < 6 and collum <= row) {
+		if (clearedPyramid[row + 1][collum] == true and clearedPyramid[row + 1][collum + 1] == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return false;
+	}
 }
