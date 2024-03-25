@@ -42,7 +42,8 @@ void PyramidSolitaire::buildPyramid() {
 void PyramidSolitaire::displayPyramid() {
 	cout << endl;
 	vector<string> line;
-	vector<string> colors;
+	vector<string> colorsOfCards;
+	vector<string> colorsOfInputs;
 
 	vector<string> inputs;
 
@@ -52,20 +53,22 @@ void PyramidSolitaire::displayPyramid() {
 	for (vector<Card> Row : Pyramid) {
 		cardI = 0;
 		line.clear();
-		colors.clear();
+		colorsOfCards.clear();
+		colorsOfInputs.clear();
 		inputs.clear();
 
 		for (Card card : Row) {
 			line.push_back(card.getDisplayForm());
-			colors.push_back(card.getColorCode());
+			colorsOfCards.push_back(card.getColorCode());
 
-			inputs.push_back("-----" + to_string(rowI) + "&" + to_string(cardI) + "------");
+			inputs.push_back("<---<" + to_string(rowI) + "" + to_string(cardI) + ">--->");
+			colorsOfInputs.push_back("37");
 
 			cardI++;
 		}
 
-		console.displayAlongLineWithSetGap(line, colors, 2);
-		console.displayAlongLineWithSetGap(inputs, colors, 2);
+		console.displayAlongLineWithSetGap(line, colorsOfCards, 2);
+		console.displayAlongLineWithSetGap(inputs, colorsOfInputs, 3);
 
 		rowI++;
 	}

@@ -42,10 +42,10 @@ string Card::getDisplayForm() {
 
 	string visualValue = getVisualValue() + "-" + suitString;
 
-	for (int i = 0; i < 7 - (size(visualValue) / 2); i++) {
+	for (int i = 0; i < 6 - (size(visualValue) / 2); i++) {
 		visualValue = "-" + visualValue;
 	}
-	for (int i = 0; i < 7 - (size(visualValue) / 2); i++) {
+	for (int i = 0; i < 6 - (size(visualValue) / 2); i++) {
 		visualValue = visualValue + "-";
 	}
 
@@ -78,22 +78,22 @@ string Card::getVisualValue() {
 	{
 	case(11):
 	{
-		visualValue = "Jack";
+		visualValue = "J";
 		break;
 	}
 	case(12):
 	{
-		visualValue = "Queen";
+		visualValue = "Q";
 		break;
 	}
 	case(13):
 	{
-		visualValue = "King";
+		visualValue = "K";
 		break;
 	}
 	case(14):
 	{
-		visualValue = "Ace";
+		visualValue = "A";
 		break;
 	}
 	default:
