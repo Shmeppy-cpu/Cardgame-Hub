@@ -40,5 +40,7 @@ public:
 	int getNumValue(enum_valueRuleSet ruleSet);
 
 	string getColorCode();
+
+	void setAsPlaceholder();
 };
 

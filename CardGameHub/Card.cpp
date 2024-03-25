@@ -11,45 +11,51 @@ Card::Card(enum_suit nSuit, int nValue) {
 
 string Card::getDisplayForm() {
 	string suitString;
+	string visualValue;
 
-	switch (suit) {
-	case(Hearts):
-	{
-		suitString = "Hearts";
-		break;
+	if (suit == Placeholder) {
+		visualValue = "   -   ";
 	}
-	case(Diamonds):
-	{
-		suitString = "Diamonds";
-		break;
-	}
-	case(Clubs):
-	{
-		suitString = "Clubs";
-		break;
-	}
-	case(Spades):
-	{
-		suitString = "Spades";
-		break;
-	}
-	default:
-		suitString = "Unkown";
-		break;
-	}
+	else {
+		switch (suit) {
+		case(Hearts):
+		{
+			suitString = "Hearts";
+			break;
+		}
+		case(Diamonds):
+		{
+			suitString = "Diamonds";
+			break;
+		}
+		case(Clubs):
+		{
+			suitString = "Clubs";
+			break;
+		}
+		case(Spades):
+		{
+			suitString = "Spades";
+			break;
+		}
+		default:
+			suitString = "Unkown";
+			break;
+		}
 
-	//Queen-Diamonds
+		//Queen-Diamonds
 
-	string visualValue = getVisualValue() + "^" + suitString;
+		visualValue = getVisualValue() + "^" + suitString;
 
-	for (int i = 0; i < 6 - (size(visualValue) / 2); i++) {
-		visualValue = "-" + visualValue;
+		for (int i = 0; i < 6 - (size(visualValue) / 2); i++) {
+			visualValue = "-" + visualValue;
+		}
+		for (int i = 0; i < 6 - (size(visualValue) / 2); i++) {
+			visualValue = visualValue + "-";
+		}
+
+		visualValue = "[" + visualValue + "]";
 	}
-	for (int i = 0; i < 6 - (size(visualValue) / 2); i++) {
-		visualValue = visualValue + "-";
-	}
-
-	visualValue = "[" + visualValue + "]";
 
 	return visualValue;
 }
@@ -156,4 +162,8 @@ string Card::getColorCode() {
 		return "30";
 	}
 	}
+}
+
+void Card::setAsPlaceholder() {
+	suit = Placeholder;
 }

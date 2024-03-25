@@ -26,5 +26,7 @@ private:
 	void playerInput();
 
 	match_state matchCards(string cardCode, Card playerCard);
+
+	void removeCardFromPyramid(int row, int collum);
 };
 

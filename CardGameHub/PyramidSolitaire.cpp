@@ -53,6 +53,7 @@ void PyramidSolitaire::displayPyramid() {
 	int rowI = 0;
 	int cardI = 0;
 
+	/*
 	for (vector<Card> Row : Pyramid) {
 		cardI = 0;
 		line.clear();
@@ -75,6 +76,36 @@ void PyramidSolitaire::displayPyramid() {
 
 		rowI++;
 	}
+	*/
+
+	for (int row = 0; row < 7; row++) {
+		line.clear();
+		colorsOfCards.clear();
+		colorsOfInputs.clear();
+		inputs.clear();
+
+		for (int collum = 0; collum < row + 1; collum++) {
+			if (collum < size(Pyramid[row]))
+			{
+				line.push_back(Pyramid[row][collum].getDisplayForm());
+				colorsOfCards.push_back(Pyramid[row][collum].getColorCode());
+
+				inputs.push_back("    <" + to_string(row) + "" + to_string(collum) + ">    ");
+				colorsOfInputs.push_back("37");
+			}
+			else 
+			{
+				line.push_back("   -   ");
+				colorsOfCards.push_back("37");
+
+				inputs.push_back("       ");
+				colorsOfInputs.push_back("37");
+			}
+		}
+
+		console.displayAlongLineWithSetGap(line, colorsOfCards, 2);
+		console.displayAlongLineWithSetGap(inputs, colorsOfInputs, 3);
+	}
 
 	cout << endl;
 }
@@ -82,6 +113,8 @@ void PyramidSolitaire::displayPyramid() {
 void PyramidSolitaire::playerInput() {
 	Card currentCard(Placeholder, 1);
 	string playerInp;
+
+	match_state matchState;
 
 	bool newCard = true;
 	bool returnCurrentCardToDeck = false;
@@ -105,7 +138,9 @@ void PyramidSolitaire::playerInput() {
 		if (playerInp != "") {
 			//cout << matchCards(playerInp, currentCard) << endl;
 
-			switch (matchCards(playerInp, currentCard))
+			matchState = matchCards(playerInp, currentCard);
+
+			switch (matchState)
 			{
 			case(matchedBoth):
 			{
@@ -157,6 +192,7 @@ match_state PyramidSolitaire::matchCards(string cardCode, Card playerCard)
 		if (card.getNumValue(solitaire) + playerCard.getNumValue(solitaire) == 13)
 		{
 			console.displayAlongLineWithSetGap({ playerCard.getDisplayForm(), " and ", card.getDisplayForm(), " match!" }, { playerCard.getColorCode(), "37", card.getColorCode(), "37" }, 2);
+			removeCardFromPyramid(row, collum);
 			matchState = matchedBoth;
 		}
 		else 
@@ -164,6 +200,7 @@ match_state PyramidSolitaire::matchCards(string cardCode, Card playerCard)
 			if (card.getNumValue(solitaire) == 13)
 			{
 				console.displayAlongLineWithSetGap({ card.getDisplayForm(), " clears itself!" }, { card.getColorCode(), "37" }, 2);
+				removeCardFromPyramid(row, collum);
 				matchState = matchedPyramidCard;
 			}
 
@@ -195,4 +232,9 @@ match_state PyramidSolitaire::matchCards(string cardCode, Card playerCard)
 	Sleep(3000);
 
 	return matchState;
+}
+
+void PyramidSolitaire::removeCardFromPyramid(int row, int collum) {
+	Pyramid[row].erase(Pyramid[row].begin() + collum);
+	//Pyramid[row][collum].setAsPlaceholder();
 }
