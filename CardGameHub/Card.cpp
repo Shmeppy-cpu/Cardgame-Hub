@@ -113,6 +113,7 @@ int Card::getNumValue(enum_valueRuleSet ruleSet)
 	{
 		returnValue = value;
 	}
+
 	case(blackjack):
 	{
 		if (value >= 10)
@@ -121,6 +122,15 @@ int Card::getNumValue(enum_valueRuleSet ruleSet)
 			if (value == 14) {
 				returnValue = 11;
 			}
+		}
+		else {
+			returnValue = value;
+		}
+	}
+	case(solitaire): 
+	{
+		if (value == 14) {
+			returnValue = 1;
 		}
 		else {
 			returnValue = value;

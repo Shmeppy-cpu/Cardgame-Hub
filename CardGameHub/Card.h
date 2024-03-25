@@ -16,6 +16,7 @@ enum enum_suit {
 enum enum_valueRuleSet {
 	normal,
 	blackjack,
+	solitaire,
 };
 
 class Card

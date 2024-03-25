@@ -3,6 +3,13 @@
 #include "Card.h"
 #include <vector>
 
+enum match_state {
+	noMatch,
+	matchedBoth,
+	matchedPyramidCard,
+	matchedPlayerCard,
+};
+
 class PyramidSolitaire : Gamemode
 {
 public:
@@ -18,6 +25,6 @@ private:
 
 	void playerInput();
 
-	void pullCard();
+	match_state matchCards(string cardCode, Card playerCard);
 };
 
