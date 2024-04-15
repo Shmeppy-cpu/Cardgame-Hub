@@ -47,11 +47,28 @@ string Card::getDisplayForm() {
 
 		visualValue = getVisualValue() + "^" + suitString;
 
+		/*
 		for (int i = 0; i < 6 - (size(visualValue) / 2); i++) {
 			visualValue = "-" + visualValue;
 		}
 		for (int i = 0; i < 6 - (size(visualValue) / 2); i++) {
 			visualValue = visualValue + "-";
+		}
+		*/
+
+		bool rightSize = false;
+		bool front = true;
+
+		while (size(visualValue) != 12)
+		{
+			if (front == true) {
+				front = false;
+				visualValue = "-" + visualValue;
+			}
+			else {
+				front = true;
+				visualValue += "-";
+			}
 		}
 
 		visualValue = "[" + visualValue + "]";

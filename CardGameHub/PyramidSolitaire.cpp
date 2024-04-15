@@ -67,17 +67,17 @@ void PyramidSolitaire::displayPyramid() {
 		for (Card card : Row) {
 			if (clearedPyramid[rowI][cardI] == true)
 			{
-				line.push_back("    .    ");
+				line.push_back("[ .......... ]");
 				colorsOfCards.push_back("37");
 
-				inputs.push_back("       ");
+				inputs.push_back("              ");
 				colorsOfInputs.push_back("37");
 			}
 			else {
 				line.push_back(card.getDisplayForm());
 				colorsOfCards.push_back(card.getColorCode());
 
-				inputs.push_back("    <" + to_string(rowI) + "" + to_string(cardI) + ">    ");
+				inputs.push_back("     (" + to_string(rowI) + "" + to_string(cardI) + ")     ");
 				colorsOfInputs.push_back("37");
 			}
 
@@ -85,7 +85,7 @@ void PyramidSolitaire::displayPyramid() {
 		}
 
 		console.displayAlongLineWithSetGap(line, colorsOfCards, 2);
-		console.displayAlongLineWithSetGap(inputs, colorsOfInputs, 3);
+		console.displayAlongLineWithSetGap(inputs, colorsOfInputs,2);
 
 		rowI++;
 	}
