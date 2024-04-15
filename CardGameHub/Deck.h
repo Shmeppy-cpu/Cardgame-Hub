@@ -19,5 +19,7 @@ public:
 	void returnCardToDeck(Card card);
 
 	Card getTopCard();
+
+	int getSize();
 };
 

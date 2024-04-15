@@ -36,3 +36,7 @@ Card Deck::getTopCard() {
 	deckOfCards.pop();
 	return card;
 }
+
+int Deck::getSize() {
+	return size(deckOfCards);
+}

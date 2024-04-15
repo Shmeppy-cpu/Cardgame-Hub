@@ -31,5 +31,7 @@ private:
 	void removeCardFromPyramid(int row, int collum);
 
 	bool canCardBeMatched(int row, int collum);
+
+	bool anyMatchesLeft();
 };
 

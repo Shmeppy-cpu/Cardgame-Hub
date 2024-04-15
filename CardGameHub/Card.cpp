@@ -43,18 +43,7 @@ string Card::getDisplayForm() {
 			break;
 		}
 
-		//Queen-Diamonds
-
 		visualValue = getVisualValue() + "^" + suitString;
-
-		/*
-		for (int i = 0; i < 6 - (size(visualValue) / 2); i++) {
-			visualValue = "-" + visualValue;
-		}
-		for (int i = 0; i < 6 - (size(visualValue) / 2); i++) {
-			visualValue = visualValue + "-";
-		}
-		*/
 
 		bool rightSize = false;
 		bool front = true;

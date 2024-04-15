@@ -115,7 +115,7 @@ void PyramidSolitaire::playerInput() {
 			currentCard = getDeckTopCard();
 		}
 
-		console.displayAlongLineWithSetGap({ currentCard.getDisplayForm(), "enter code below card to try and match, just press enter for new card " }, { currentCard.getColorCode(), "37" }, 5);
+		console.displayAlongLineWithSetGap({to_string(getDeck().getSize()), currentCard.getDisplayForm(), "enter code below card to try and match, just press enter for new card "}, {"37", currentCard.getColorCode(), "37"}, 5);
 		getline(cin, playerInp);
 
 		if (playerInp != "") {
@@ -164,59 +164,73 @@ match_state PyramidSolitaire::matchCards(string cardCode, Card playerCard)
 	match_state matchState = noMatch;
 
 	int row = stoi(cardCode.substr(0, 1), 0);
-	int collum = stoi(cardCode.substr(1, 2), 0);
+	int collum;
 
-	if (canCardBeMatched(row, collum))
-	{
-		Card card = Pyramid[row][collum];
-
-		if (card.getNumValue(solitaire) + playerCard.getNumValue(solitaire) == 13)
-		{
-			console.displayAlongLineWithSetGap({ playerCard.getDisplayForm(), " and ", card.getDisplayForm(), " match!" }, { playerCard.getColorCode(), "37", card.getColorCode(), "37" }, 2);
-			removeCardFromPyramid(row, collum);
-			matchState = matchedBoth;
-		}
-		else 
-		{
-			if (card.getNumValue(solitaire) == 13)
-			{
-				console.displayAlongLineWithSetGap({ card.getDisplayForm(), " clears itself!" }, { card.getColorCode(), "37" }, 2);
-				removeCardFromPyramid(row, collum);
-				matchState = matchedPyramidCard;
-			}
-
-			if (playerCard.getNumValue(solitaire) == 13)
-			{
-				console.displayAlongLineWithSetGap({ playerCard.getDisplayForm(), " clears itself!" }, { playerCard.getColorCode(), "37" }, 2);
-
-				if (matchState == matchedPyramidCard) {
-					matchState = matchedBoth;
-				}
-				else {
-					matchState = matchedPlayerCard;
-				}
-			}
-
-			if ((playerCard.getNumValue(solitaire) != 13) and (card.getNumValue(solitaire) != 13)) {
-				console.displayAlongLineWithSetGap({ playerCard.getDisplayForm(), " and ", card.getDisplayForm(), " don't match..." }, { playerCard.getColorCode(), "37", card.getColorCode(), "37" }, 2);
-				matchState = noMatch;
-			}
-		}
+	if (size(cardCode) < 2) {
+		collum = 0;
 	}
-	else
-	{
-		if (row < 7 and collum <= row) {
+	else {
+		collum = stoi(cardCode.substr(1, 2), 0);
+	}
+
+	//Only checks for match if the card given by the player hasn't already been cleared
+	if (clearedPyramid[row][collum] == true) {
+		matchState = noMatch;
+		console.displayAlongLine({ "No Card There" }, {"37"});
+	}
+	else {
+		if (canCardBeMatched(row, collum))
+		{
 			Card card = Pyramid[row][collum];
-			console.displayAlongLineWithSetGap({ "Can't match with ", card.getDisplayForm(), " yet..." }, { "37", card.getColorCode(), "37" }, 2);
+
+			if (card.getNumValue(solitaire) + playerCard.getNumValue(solitaire) == 13)
+			{
+				console.displayAlongLineWithSetGap({ playerCard.getDisplayForm(), " and ", card.getDisplayForm(), " match!" }, { playerCard.getColorCode(), "37", card.getColorCode(), "37" }, 2);
+				removeCardFromPyramid(row, collum);
+				matchState = matchedBoth;
+			}
+			else
+			{
+				if (card.getNumValue(solitaire) == 13)
+				{
+					console.displayAlongLineWithSetGap({ card.getDisplayForm(), " clears itself!" }, { card.getColorCode(), "37" }, 2);
+					removeCardFromPyramid(row, collum);
+					matchState = matchedPyramidCard;
+				}
+
+				if (playerCard.getNumValue(solitaire) == 13)
+				{
+					console.displayAlongLineWithSetGap({ playerCard.getDisplayForm(), " clears itself!" }, { playerCard.getColorCode(), "37" }, 2);
+
+					if (matchState == matchedPyramidCard) {
+						matchState = matchedBoth;
+					}
+					else {
+						matchState = matchedPlayerCard;
+					}
+				}
+
+				if ((playerCard.getNumValue(solitaire) != 13) and (card.getNumValue(solitaire) != 13)) {
+					console.displayAlongLineWithSetGap({ playerCard.getDisplayForm(), " and ", card.getDisplayForm(), " don't match..." }, { playerCard.getColorCode(), "37", card.getColorCode(), "37" }, 2);
+					matchState = noMatch;
+				}
+			}
 		}
-		else {
-			console.displayText("No card there to match with", "37");
+		else
+		{
+			if (row < 7 and collum <= row) {
+				Card card = Pyramid[row][collum];
+				console.displayAlongLineWithSetGap({ "Can't match with ", card.getDisplayForm(), " yet..." }, { "37", card.getColorCode(), "37" }, 2);
+			}
+			else {
+				console.displayText("No card there to match with", "37");
+			}
 		}
 	}
 
 	//Card card = Pyramid[cardCode[0]][cardCode[1]];
 
-	Sleep(3000);
+	Sleep(2000);
 
 	return matchState;
 }
@@ -241,6 +255,26 @@ bool PyramidSolitaire::canCardBeMatched(int row, int collum)
 		else {
 			return false;
 		}
+	}
+	else {
+		return false;
+	}
+}
+
+bool PyramidSolitaire::anyMatchesLeft() {
+	int matchesLeft = 0;
+
+	int collumEnd = 0;
+	for (int row = 0; row >= 6; row++) {
+		for (int collum = 0; collum >= collumEnd; collum++) {
+
+		}
+
+		collumEnd++;
+	}
+
+	if (matchesLeft > 0) {
+		return true;
 	}
 	else {
 		return false;
