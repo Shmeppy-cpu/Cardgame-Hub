@@ -59,7 +59,6 @@ void Blackjack::checkForWin() {
 	getline(cin, playAgain);
 
 	if (playAgain == "n") {
-		exit(0);
 	}
 	else {
 		newRound();
@@ -84,7 +83,7 @@ void Blackjack::playersInput() {
 
 				if (&player == mainPlayer)
 				{
-					displayText(player.getName() + ", Do you want to stand(enter)? or hit(h & enter)?", "37");
+					displayText(player.getName() + ", Do you want to hit(enter)? or stand(y & enter)?", "37");
 					getline(cin, action);
 				}
 				else if (&player == dealer)

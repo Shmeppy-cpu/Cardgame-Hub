@@ -16,9 +16,42 @@ int main()
 
 	system("Color 60");
 
-	Blackjack blackjack;
+	string playerChoice = "b";
+	ConsoleManager console;
 
-	//PyramidSolitaire pyramid;
+	string logo = R"(
+ ____                       __       __  __           __        
+/\  _`\                    /\ \     /\ \/\ \         /\ \       
+\ \ \/\_\     __     _ __  \_\ \    \ \ \_\ \  __  __\ \ \____  
+ \ \ \/_/_  /'__`\  /\`'__\/'_` \    \ \  _  \/\ \/\ \\ \ '__`\ 
+  \ \ \L\ \/\ \L\.\_\ \ \//\ \L\ \    \ \ \ \ \ \ \_\ \\ \ \L\ \
+   \ \____/\ \__/.\_\\ \_\\ \___,_\    \ \_\ \_\ \____/ \ \_,__/
+    \/___/  \/__/\/_/ \/_/ \/__,_ /     \/_/\/_/\/___/   \/___/ 
+		)";
+
+	while (playerChoice != "") {
+		console.clearConsole();
+
+		cout << logo << endl;
+
+		for (int i = 0; i < 120; i++) {
+			cout << "_";
+		}
+		cout << endl;
+
+		console.displayText("(b) and enter for blackjack, (p) and enter for pyramid solitaire, any other key and enter to close", "37");
+		getline(cin, playerChoice);
+
+		if (playerChoice == "b") {
+			Blackjack blackjack;
+		}
+		else if (playerChoice == "p") {
+			PyramidSolitaire pyramid;
+		}
+		else {
+			exit(0);
+		}
+	}
 
 	//testDeck();
 }
