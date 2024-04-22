@@ -82,6 +82,7 @@ int player::getHandValue(enum_valueRuleSet ruleSet) {
 
 	//Creates a temporary vector and moves all the cards over to it so it can be iterated over
 	vector<Card> temporaryHand;
+	vector<int> values;
 	int handSize = size(hand);
 
 	for (int i = 0; i < handSize; i++) {
@@ -91,8 +92,23 @@ int player::getHandValue(enum_valueRuleSet ruleSet) {
 
 	for (Card card : temporaryHand) {
 		value += card.getNumValue(ruleSet);
+		values.push_back(card.getNumValue(ruleSet));
 
 		hand.push(card);
+	}
+
+	if (ruleSet == blackjack and value > 21 and find(values.begin(), values.end(), 11) != values.end())
+	{
+		value = 0;
+
+		for (Card card : temporaryHand) {
+
+			if (card.getNumValue(blackjack) == 11) {
+				card.overrideValue(1);
+			}
+
+			value += card.getNumValue(ruleSet);
+		}
 	}
 
 	return value;

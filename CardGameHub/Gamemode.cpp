@@ -23,7 +23,7 @@ void Gamemode::setUpGamemode(int nPlayers, int nHandCount, string nPlayerOutText
 	mainPlayer->setName("You");
 
 	if (howManyPlayers > 1) {
-		dealer = &players[1];
+		dealer = &players[size(players) - 1];
 
 		dealer->setName("Dealer");
 	}
@@ -160,10 +160,15 @@ void Gamemode::displayText(string text, string colorCode) {
 	console.displayText(text, colorCode);
 }
 
-void Gamemode::win(player winnner) {
+void Gamemode::win(player winner, bool tie) {
 	//listAllPlayersHands(0);
 
-	console.displayText(winnner.getName() + " won!", "37");
+	if (tie == true) {
+		console.displayText("Tie!", "37");
+	}
+	else {
+		console.displayText(winner.getName() + " won!", "37");
+	}
 }
 
 void Gamemode::putPlayerUpForWinning(player player) {

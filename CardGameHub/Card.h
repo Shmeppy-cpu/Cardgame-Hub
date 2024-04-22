@@ -42,5 +42,7 @@ public:
 	string getColorCode();
 
 	void setAsPlaceholder();
+
+	void overrideValue(int newValue);
 };
 

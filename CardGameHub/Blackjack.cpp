@@ -33,6 +33,8 @@ void Blackjack::newRound() {
 
 void Blackjack::checkForWin() {
 	gameRunning = false;
+
+	bool tie = false;
 	player currentWinner;
 	int currentHighestHand = 0;
 
@@ -42,12 +44,15 @@ void Blackjack::checkForWin() {
 		{
 			currentWinner = player;
 			currentHighestHand = player.getHandValue(blackjack);
+		} 
+		else if (player.isUpForWinning() == true and player.getHandValue(blackjack) == currentHighestHand) {
+			tie = true;
 		}
 	}
 
 	displayPlayersHands(1);
 
-	win(currentWinner);
+	win(currentWinner, tie);
 
 	string playAgain;
 	displayText("Do you want to play again? y/n", "37");
@@ -79,8 +84,19 @@ void Blackjack::playersInput() {
 
 				if (&player == mainPlayer)
 				{
-					displayText(player.getName() + ", Do you want to stand(s)? or hit(h)?", "37");
+					displayText(player.getName() + ", Do you want to stand(enter)? or hit(h & enter)?", "37");
 					getline(cin, action);
+				}
+				else if (&player == dealer)
+				{
+					if (player.getHandValue(blackjack) >= 17)
+					{
+						action = "s";
+					}
+					else 
+					{
+						action = "";
+					}
 				}
 				else
 				{
@@ -90,7 +106,7 @@ void Blackjack::playersInput() {
 					//Hits if NPCs value is lower than 14
 					if (player.getHandValue(blackjack) <= 14)
 					{
-						action = "h";
+						action = "";
 					}
 					//Stands if it is higher than 17
 					else if (player.getHandValue(blackjack) >= 18)
@@ -101,7 +117,7 @@ void Blackjack::playersInput() {
 					else
 					{
 						if ((0 + rand() % 1) == 1) {
-							action = "h";
+							action = "";
 						}
 						else
 						{
@@ -110,7 +126,7 @@ void Blackjack::playersInput() {
 					}
 				}
 
-				if (action == "h")
+				if (action == "")
 				{
 					dealCard(player);
 
@@ -123,7 +139,6 @@ void Blackjack::playersInput() {
 					{
 						//putPlayerUpForWinning(player);
 						player.setPossibleWinStatus(true);
-						checkForWin();
 						action = "s";
 					}
 

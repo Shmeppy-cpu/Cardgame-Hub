@@ -32,7 +32,7 @@ protected:
 
 	void displayText(string text, string colorCode);
 
-	void win(player winner);
+	void win(player winner, bool tie);
 
 	void putPlayerUpForWinning(player player);
 

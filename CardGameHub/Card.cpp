@@ -88,6 +88,11 @@ string Card::getVisualValue() {
 
 	switch (value)
 	{
+	case(1):
+	{
+		visualValue = "A";
+		break;
+	}
 	case(11):
 	{
 		visualValue = "J";
@@ -124,13 +129,14 @@ int Card::getNumValue(enum_valueRuleSet ruleSet)
 	case(normal):
 	{
 		returnValue = value;
+		break;
 	}
-
 	case(blackjack):
 	{
 		if (value >= 10)
 		{
 			returnValue = 10;
+
 			if (value == 14) {
 				returnValue = 11;
 			}
@@ -138,6 +144,7 @@ int Card::getNumValue(enum_valueRuleSet ruleSet)
 		else {
 			returnValue = value;
 		}
+		break;
 	}
 	case(solitaire): 
 	{
@@ -148,6 +155,7 @@ int Card::getNumValue(enum_valueRuleSet ruleSet)
 			returnValue = value;
 		}
 	}
+	break;
 	}
 
 	return returnValue;
@@ -172,4 +180,8 @@ string Card::getColorCode() {
 
 void Card::setAsPlaceholder() {
 	suit = Placeholder;
+}
+
+void Card::overrideValue(int newValue) {
+	value = newValue;
 }

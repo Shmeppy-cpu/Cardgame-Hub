@@ -16,9 +16,9 @@ int main()
 
 	system("Color 60");
 
-	//Blackjack blackjack;
+	Blackjack blackjack;
 
-	PyramidSolitaire pyramid;
+	//PyramidSolitaire pyramid;
 
 	//testDeck();
 }
