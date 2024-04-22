@@ -21,5 +21,7 @@ public:
 	Card getTopCard();
 
 	int getSize();
+
+	vector<Card> getDeckOfCardsAsVector();
 };
 

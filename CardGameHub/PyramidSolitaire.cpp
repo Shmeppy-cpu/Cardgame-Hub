@@ -156,6 +156,10 @@ void PyramidSolitaire::playerInput() {
 			newCard = true;
 			returnCurrentCardToDeck = true;
 		}
+
+		if (anyMatchesLeft() == false) {
+			endGame();
+		}
 	}
 }
 
@@ -263,14 +267,25 @@ bool PyramidSolitaire::canCardBeMatched(int row, int collum)
 
 bool PyramidSolitaire::anyMatchesLeft() {
 	int matchesLeft = 0;
+	int row = 0;
+	int collum = 0;
+	vector<Card> playerCards = getDeck().getDeckOfCardsAsVector();
 
-	int collumEnd = 0;
-	for (int row = 0; row >= 6; row++) {
-		for (int collum = 0; collum >= collumEnd; collum++) {
+	for (vector<Card> collumCards : Pyramid) {
+		for (Card Pcard : collumCards) {
+			if (canCardBeMatched(row, collum) == true) {
+				for (Card card : playerCards) {
+					if ((Pcard.getNumValue(solitaire) + card.getNumValue(solitaire) == 13) or (Pcard.getNumValue(solitaire) == 13)) {
+						matchesLeft++;
+					}
+				}
+			}
 
+			collum++;
 		}
 
-		collumEnd++;
+		row++;
+		collum = 0;
 	}
 
 	if (matchesLeft > 0) {
@@ -279,4 +294,11 @@ bool PyramidSolitaire::anyMatchesLeft() {
 	else {
 		return false;
 	}
+}
+
+void PyramidSolitaire::endGame() {
+	gameRunning = false;
+	console.displayText("No Matches Left!", "37");
+
+	Sleep(1000000);
 }

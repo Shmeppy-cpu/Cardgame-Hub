@@ -178,10 +178,6 @@ string Card::getColorCode() {
 	}
 }
 
-void Card::setAsPlaceholder() {
-	suit = Placeholder;
-}
-
 void Card::overrideValue(int newValue) {
 	value = newValue;
 }

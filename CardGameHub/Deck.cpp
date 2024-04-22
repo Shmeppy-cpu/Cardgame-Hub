@@ -40,3 +40,19 @@ Card Deck::getTopCard() {
 int Deck::getSize() {
 	return size(deckOfCards);
 }
+
+vector<Card> Deck::getDeckOfCardsAsVector() {
+	vector<Card> cardVector;
+
+	//fills the vector with all the cards from the deck queue
+	for (int i = 0; i <= size(deckOfCards); i++) {
+		cardVector.push_back(getTopCard());
+	}
+
+	//re-fill the deck with the cards used to assemble the vector
+	for (Card card : cardVector) {
+		deckOfCards.push(card);
+	}
+
+	return cardVector;
+}

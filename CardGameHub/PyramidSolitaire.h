@@ -33,5 +33,7 @@ private:
 	bool canCardBeMatched(int row, int collum);
 
 	bool anyMatchesLeft();
+
+	void endGame();
 };
 
