@@ -44,8 +44,10 @@ int Deck::getSize() {
 vector<Card> Deck::getDeckOfCardsAsVector() {
 	vector<Card> cardVector;
 
+	int sizeOfDeck = getSize();
+
 	//fills the vector with all the cards from the deck queue
-	for (int i = 0; i <= size(deckOfCards); i++) {
+	for (int i = 0; i < sizeOfDeck; i++) {
 		cardVector.push_back(getTopCard());
 	}
 

@@ -14,6 +14,9 @@ class PyramidSolitaire : Gamemode
 {
 public:
 	PyramidSolitaire();
+
+	Card currentCard;
+
 private:
 	vector<vector<Card>> Pyramid;
 	vector<vector<bool>> clearedPyramid;
@@ -32,7 +35,7 @@ private:
 
 	bool canCardBeMatched(int row, int collum);
 
-	bool anyMatchesLeft();
+	int howManyMatchesLeft();
 
 	void endGame();
 };

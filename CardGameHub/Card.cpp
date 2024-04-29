@@ -4,6 +4,11 @@
                
 using namespace std;
 
+Card::Card() {
+	suit = Placeholder;
+	value = 1;
+}
+
 Card::Card(enum_suit nSuit, int nValue) {
 	suit = nSuit;
 	value = nValue;

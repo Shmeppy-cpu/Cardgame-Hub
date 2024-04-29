@@ -27,6 +27,8 @@ private:
 	ConsoleManager console;
 
 public:
+	Card();
+
 	Card(enum_suit nSuit, int nValue);
 
 	string getDisplayForm();

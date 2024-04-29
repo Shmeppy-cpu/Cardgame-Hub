@@ -94,7 +94,7 @@ void PyramidSolitaire::displayPyramid() {
 }
 
 void PyramidSolitaire::playerInput() {
-	Card currentCard(Placeholder, 1);
+	//Card currentCard(Placeholder, 1);
 	string playerInp;
 
 	match_state matchState;
@@ -115,8 +115,14 @@ void PyramidSolitaire::playerInput() {
 			currentCard = getDeckTopCard();
 		}
 
+		if (howManyMatchesLeft() <= 0) {
+			endGame();
+		}
+
 		console.displayAlongLineWithSetGap({to_string(getDeck().getSize()), currentCard.getDisplayForm(), "enter code below card to try and match, just press enter for new card "}, {"37", currentCard.getColorCode(), "37"}, 5);
+		console.displayText("Potential Matches Left - " + to_string(howManyMatchesLeft()), "37");
 		getline(cin, playerInp);
+
 
 		if (playerInp != "") {
 			//cout << matchCards(playerInp, currentCard) << endl;
@@ -155,10 +161,6 @@ void PyramidSolitaire::playerInput() {
 		else {
 			newCard = true;
 			returnCurrentCardToDeck = true;
-		}
-
-		if (anyMatchesLeft() == false) {
-			endGame();
 		}
 	}
 }
@@ -265,18 +267,23 @@ bool PyramidSolitaire::canCardBeMatched(int row, int collum)
 	}
 }
 
-bool PyramidSolitaire::anyMatchesLeft() {
+int PyramidSolitaire::howManyMatchesLeft() {
 	int matchesLeft = 0;
 	int row = 0;
 	int collum = 0;
 	vector<Card> playerCards = getDeck().getDeckOfCardsAsVector();
 
+	playerCards.push_back(currentCard);
+
 	for (vector<Card> collumCards : Pyramid) {
 		for (Card Pcard : collumCards) {
 			if (canCardBeMatched(row, collum) == true) {
 				for (Card card : playerCards) {
-					if ((Pcard.getNumValue(solitaire) + card.getNumValue(solitaire) == 13) or (Pcard.getNumValue(solitaire) == 13)) {
-						matchesLeft++;
+					if (clearedPyramid[row][collum] == false) {
+						if ((Pcard.getNumValue(solitaire) + card.getNumValue(solitaire) == 13) or (Pcard.getNumValue(solitaire) == 13)) {
+							//cout << Pcard.getDisplayForm() << " MATCH " << card.getDisplayForm() << endl;
+							matchesLeft++;
+						}
 					}
 				}
 			}
@@ -288,12 +295,7 @@ bool PyramidSolitaire::anyMatchesLeft() {
 		collum = 0;
 	}
 
-	if (matchesLeft > 0) {
-		return true;
-	}
-	else {
-		return false;
-	}
+	return matchesLeft;
 }
 
 void PyramidSolitaire::endGame() {
