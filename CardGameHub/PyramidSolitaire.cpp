@@ -15,17 +15,21 @@ PyramidSolitaire::PyramidSolitaire() {
 );
 
 	newGame();
-	displayPyramid();
-	playerInput();
 }
 
 void PyramidSolitaire::newGame() {
 	gameRunning = true;
 
+	getDeck().fillDeck();
+	getDeck().shuffleDeck();
+
 	buildPyramid();
+	playerInput();
 }
 
 void PyramidSolitaire::buildPyramid() {
+	Pyramid.clear();
+	clearedPyramid.clear();
 
 	int rows = 7;
 	for (int collum = 0; collum < 7; collum++) {
@@ -124,7 +128,7 @@ void PyramidSolitaire::playerInput() {
 		getline(cin, playerInp);
 
 
-		if (playerInp != "") {
+		if ((playerInp != "") and (size(playerInp) == 2)) {
 			//cout << matchCards(playerInp, currentCard) << endl;
 
 			matchState = matchCards(playerInp, currentCard);
@@ -299,8 +303,18 @@ int PyramidSolitaire::howManyMatchesLeft() {
 }
 
 void PyramidSolitaire::endGame() {
+	string playerInp;
+
 	gameRunning = false;
 	console.displayText("No Matches Left!", "37");
 
-	Sleep(1000000);
+	displayText("y to play again, n to return to menu", "37");
+	getline(cin, playerInp);
+
+	if (playerInp == "y") {
+		newGame();
+	}
+	else {
+
+	}
 }

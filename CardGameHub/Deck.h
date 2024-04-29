@@ -14,6 +14,8 @@ private:
 public:
 	Deck();
 
+	void fillDeck();
+
 	void shuffleDeck();
 
 	void returnCardToDeck(Card card);

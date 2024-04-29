@@ -2,6 +2,13 @@
 #include "ConsoleManager.h"
 
 Deck::Deck() {
+	fillDeck();
+}
+
+void Deck::fillDeck() {
+	queue<Card> emptyDeck;
+	deckOfCards = emptyDeck;
+
 	enum_suit suits[4] = { Hearts, Diamonds, Spades, Clubs };
 
 	for (int s = 0; s <= 3; s++) {
