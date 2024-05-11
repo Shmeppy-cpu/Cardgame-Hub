@@ -195,7 +195,8 @@ match_state PyramidSolitaire::matchCards(string cardCode, Card playerCard)
 
 			if (card.getNumValue(solitaire) + playerCard.getNumValue(solitaire) == 13)
 			{
-				console.displayAlongLineWithSetGap({ playerCard.getDisplayForm(), " and ", card.getDisplayForm(), " match!" }, { playerCard.getColorCode(), "37", card.getColorCode(), "37" }, 2);
+				console.displayAlongLineWithSetGap({ playerCard.getDisplayForm(), " and ", card.getDisplayForm(), " match!" }, 
+					{ playerCard.getColorCode(), "37", card.getColorCode(), "37" }, 2);
 				removeCardFromPyramid(row, collum);
 				matchState = matchedBoth;
 			}
@@ -203,7 +204,8 @@ match_state PyramidSolitaire::matchCards(string cardCode, Card playerCard)
 			{
 				if (card.getNumValue(solitaire) == 13)
 				{
-					console.displayAlongLineWithSetGap({ card.getDisplayForm(), " clears itself!" }, { card.getColorCode(), "37" }, 2);
+					console.displayAlongLineWithSetGap({ card.getDisplayForm(), " clears itself!" }, 
+						{ card.getColorCode(), "37" }, 2);
 					removeCardFromPyramid(row, collum);
 					matchState = matchedPyramidCard;
 				}
@@ -211,6 +213,7 @@ match_state PyramidSolitaire::matchCards(string cardCode, Card playerCard)
 				if (playerCard.getNumValue(solitaire) == 13)
 				{
 					console.displayAlongLineWithSetGap({ playerCard.getDisplayForm(), " clears itself!" }, { playerCard.getColorCode(), "37" }, 2);
+
 
 					if (matchState == matchedPyramidCard) {
 						matchState = matchedBoth;
@@ -221,7 +224,8 @@ match_state PyramidSolitaire::matchCards(string cardCode, Card playerCard)
 				}
 
 				if ((playerCard.getNumValue(solitaire) != 13) and (card.getNumValue(solitaire) != 13)) {
-					console.displayAlongLineWithSetGap({ playerCard.getDisplayForm(), " and ", card.getDisplayForm(), " don't match..." }, { playerCard.getColorCode(), "37", card.getColorCode(), "37" }, 2);
+					console.displayAlongLineWithSetGap({ playerCard.getDisplayForm(), " and ", card.getDisplayForm(), " don't match..." }, 
+						{ playerCard.getColorCode(), "37", card.getColorCode(), "37" }, 2);
 					matchState = noMatch;
 				}
 			}
