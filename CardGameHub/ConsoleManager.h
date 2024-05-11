@@ -14,8 +14,6 @@ class ConsoleManager
 private:
 	vector<string> textOnScreen;
 
-	_CONSOLE_FONT_INFOEX Font;
-
 public:
 	ConsoleManager();
 

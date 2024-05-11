@@ -5,6 +5,7 @@
 using namespace std;
 
 Card::Card() {
+	//Defualt constructor
 	suit = Placeholder;
 	value = 1;
 }
@@ -18,6 +19,7 @@ string Card::getDisplayForm() {
 	string suitString;
 	string visualValue;
 
+	//get a string for the correct suit
 	if (suit == Placeholder) {
 		visualValue = "   -   ";
 	}
@@ -48,9 +50,10 @@ string Card::getDisplayForm() {
 			break;
 		}
 
+		//get the visual value of the card (13 becomes K etc) and add the suits string to the end of it,
 		visualValue = getVisualValue() + "^" + suitString;
 
-		bool rightSize = false;
+		//bool to alternate whether a - is being added at the front or back of the string.
 		bool front = true;
 
 		while (size(visualValue) != 12)
@@ -65,23 +68,11 @@ string Card::getDisplayForm() {
 			}
 		}
 
+		//add square brackets surronding the string before returning it.
 		visualValue = "[" + visualValue + "]";
 	}
 
 	return visualValue;
-}
-
-void Card::display() {
-	string colorCode;
-	if (suit == Hearts or suit == Diamonds) {
-		colorCode = "31";
-	}
-	else if (suit == Spades or suit == Clubs)
-	{
-		colorCode = "30";
-	}
-
-	console.displayText(getDisplayForm(), colorCode);
 }
 
 enum_suit Card::getSuit() {
@@ -90,6 +81,7 @@ enum_suit Card::getSuit() {
 
 string Card::getVisualValue() {
 	string visualValue;
+	//returns the visual value of the cards numerical value so that 12 is displayed as Q rather than 12
 
 	switch (value)
 	{
@@ -130,6 +122,11 @@ int Card::getNumValue(enum_valueRuleSet ruleSet)
 {
 	int returnValue = 0; 
 
+	/*
+	changes the return value based on the ruleset applied too it, 
+	for example in blackjack, J, Q, K are all worth 10 so anything with a value above 10 is returned as 10 with the blackjack rules applied
+	*/
+
 	switch (ruleSet) {
 	case(normal):
 	{
@@ -167,6 +164,8 @@ int Card::getNumValue(enum_valueRuleSet ruleSet)
 }
 
 string Card::getColorCode() {
+	//if the suit is Hearts or diamonds return the colorCode for red, return the code for black if the suit is clubs or spades
+
 	switch (suit) {
 	case(Hearts): {
 		return "31";

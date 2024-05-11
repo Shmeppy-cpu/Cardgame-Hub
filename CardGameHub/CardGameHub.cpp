@@ -7,13 +7,13 @@
 #include "ConsoleManager.h"
 #include "PyramidSolitaire.h"
 
-void testDeck();
-
 int main()
 {
+	//Set the seed for random numbers to time to make it different.
 	srand(1);
 	srand(time(0));
 
+	//set the color for the background
 	system("Color 60");
 
 	string playerChoice = "b";
@@ -32,13 +32,17 @@ int main()
 	while (playerChoice != "") {
 		console.clearConsole();
 
+
+		//display the card hub logo
 		cout << logo << endl;
 
+		//display a line under the logo
 		for (int i = 0; i < 120; i++) {
 			cout << "_";
 		}
 		cout << endl;
 
+		//ask the player for input on what game to play
 		console.displayText("(b) and enter for blackjack, (p) and enter for pyramid solitaire, any other key and enter to close", "37");
 		getline(cin, playerChoice);
 
@@ -51,18 +55,5 @@ int main()
 		else {
 			exit(0);
 		}
-	}
-
-	//testDeck();
-}
-
-void testDeck() {
-	Deck deck;
-	//deck.fillDeck();
-	deck.shuffleDeck();
-
-	for (int i = 0; i < 52; i++) {
-		Card card = deck.getTopCard();
-		card.display();
 	}
 }

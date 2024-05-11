@@ -33,8 +33,6 @@ public:
 
 	string getDisplayForm();
 
-	void display();
-
 	enum_suit getSuit();
 
 	string getVisualValue();
