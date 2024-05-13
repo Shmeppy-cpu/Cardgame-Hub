@@ -22,8 +22,6 @@ protected:
 
 	void newHands();
 
-	void listAllPlayersHands(int hiddenCards);
-
 	vector<player>& getAllPlayers();
 
 	void bustPlayer(player& player);

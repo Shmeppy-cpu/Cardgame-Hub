@@ -14,68 +14,13 @@ void player::giveCard(Card nCard) {
 	Beep(1000, 100);
 }
 
-void player::listHand(int hiddenCards) {
-	//cout << "" << endl;
-
-	string extra;
-	vector<string> handDisplayLine;
-	vector<string> colorCodes;
-
-	if (getIsMainPlayer() == true or hiddenCards == 0 or isOut() == true) {
-		extra = to_string(getHandValue(lastUsedRuleSet));
-	}
-
-	if (out == true)
-	{
-		if (upForWin == true) {
-			extra = " standing" + to_string(getHandValue(lastUsedRuleSet));
-		}
-		else {
-			extra = " out";
-		}
-	}
-
-	vector<Card> temporaryHand;
-	int handSize = hand.size();
-
-	for (int i = 0; i < handSize; i++) {
-		temporaryHand.push_back(hand.front());
-		hand.pop();
-	}
-
-	console.displayText(name + "'s Hand: " + extra, "37");
-	cout << endl;
-
-	for (Card i : temporaryHand) {
-		if (hiddenCards > 0)
-		{
-			handDisplayLine.push_back(">-Hidden-<");
-			colorCodes.push_back("37");
-			//console.displayText(">-Hidden-<", "37");
-			hand.push(i);
-			hiddenCards--;
-		}
-		else {
-			handDisplayLine.push_back(i.getDisplayForm());
-
-			colorCodes.push_back("37");
-
-			//i.display();
-			hand.push(i);
-		}
-	}
-
-	console.displayAlongLine(handDisplayLine, colorCodes);
-
-	cout << "" << endl;
-}
-
 void player::setName(string nName) {
 	name = nName;
 }
 
 int player::getHandValue(enum_valueRuleSet ruleSet) {
 
+	//set the last used rule set to the given one so it can be used elsewhere
 	lastUsedRuleSet = ruleSet;
 
 	int value = 0;
@@ -90,6 +35,7 @@ int player::getHandValue(enum_valueRuleSet ruleSet) {
 		hand.pop();
 	}
 
+	//add each cards value to the total value and add it back to the hand
 	for (Card card : temporaryHand) {
 		value += card.getNumValue(ruleSet);
 		values.push_back(card.getNumValue(ruleSet));
@@ -97,6 +43,7 @@ int player::getHandValue(enum_valueRuleSet ruleSet) {
 		hand.push(card);
 	}
 
+	//if the ruleset is blackjack, iterate through all the values, if there is an 11(ace), set it to 1 if it goes over 21 and keep it at 11 otherwise
 	if (ruleSet == blackjack and value > 21 and find(values.begin(), values.end(), 11) != values.end())
 	{
 		value = 0;
@@ -135,6 +82,7 @@ bool player::isUpForWinning() {
 }
 
 void player::assignRandomName() {
+	//pick a random name from the array of names and assign it to the player
 	int amountOfNames = size(names);
 	setName(names[(0 + rand() % amountOfNames)]);
 }
@@ -150,6 +98,7 @@ int player::getSizeOfHand() {
 }
 
 vector<Card> player::getHand() {
+	//creates a vector and fills it with the hand before returning it
 	vector<Card> returnHand;
 	int handSize = getSizeOfHand();
  
@@ -162,26 +111,4 @@ vector<Card> player::getHand() {
 	}
 
 	return returnHand;
-}
-
-string player::handValueDisplay() {
-	int value = getHandValue(lastUsedRuleSet);
-	string display;
-	if (value > 21) {
-		display = "Bust! - " + to_string(value);
-	}
-	else if (isMainPlayer == true)
-	{
-		display = to_string(value);
-	}
-	else if (out == true) 
-	{
-		display = to_string(value);
-
-	}
-	else {
-		display = "hidden!";
-	}
-
-	return display;
 }

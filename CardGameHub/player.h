@@ -37,8 +37,6 @@ public:
 
 	void giveCard(Card ncard);
 
-	void listHand(int hiddenCards);
-
 	void setName(string nName);
 
 	int getHandValue(enum_valueRuleSet ruleSet);
@@ -60,7 +58,5 @@ public:
 	int getSizeOfHand();
 
 	vector<Card> getHand();
-
-	string handValueDisplay();
 };
 

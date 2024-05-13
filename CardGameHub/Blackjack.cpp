@@ -24,6 +24,8 @@ Blackjack::Blackjack() {
 
 void Blackjack::newRound() {
 	gameRunning = true;
+
+	//give each player new hands and begin the game again
 	newHands();
 	displayPlayersHands(1);
 	playersInput();
@@ -38,22 +40,26 @@ void Blackjack::checkForWin() {
 	player currentWinner;
 	int currentHighestHand = 0;
 
+	//loop through each player, check they are up for winning and check if their habnd is higher than the current highest hand, if it is make them the current winner
 	for (player player : getAllPlayers()) 
 	{
-		if (player.isUpForWinning() == true and player.getHandValue(blackjack) > currentHighestHand)
+		if (player.isUpForWinning() == true and player.getHandValue(blackjack) > currentHighestHand and player.getHandValue(blackjack) <= 21)
 		{
 			currentWinner = player;
 			currentHighestHand = player.getHandValue(blackjack);
 		} 
 		else if (player.isUpForWinning() == true and player.getHandValue(blackjack) == currentHighestHand) {
+			//if they are equal, make tie true so the win state is displayed as true
 			tie = true;
 		}
 	}
 
 	displayPlayersHands(1);
 
+	//display win state
 	win(currentWinner, tie);
 
+	//get player input to see if they want to play again or try a diffrent game
 	string playAgain;
 	displayText("Do you want to play again? y/n", "37");
 	getline(cin, playAgain);
@@ -87,7 +93,7 @@ void Blackjack::playersInput() {
 				//If the current player is the user than ask for input on whether to hit or stand.
 				if (&player == mainPlayer)
 				{
-					displayText(player.getName() + ", Do you want to hit(enter)? or stand(y & enter)?", "37");
+					displayText(player.getName() + ", Do you want to hit(enter)? or stand(s & enter)?", "37");
 					getline(cin, action);
 				}
 				//If the current player is the dealer
