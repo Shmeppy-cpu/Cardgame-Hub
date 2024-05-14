@@ -102,7 +102,7 @@ void Gamemode::win(player winner, bool tie) {
 	}
 }
 
-void Gamemode::putPlayerUpForWinning(player player) {
+void Gamemode::putPlayerUpForWinning(player& player) {
 	//set the player possible win status to true
 	player.setPossibleWinStatus(true);
 }

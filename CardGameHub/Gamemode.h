@@ -32,7 +32,7 @@ protected:
 
 	void win(player winner, bool tie);
 
-	void putPlayerUpForWinning(player player);
+	void putPlayerUpForWinning(player& player);
 
 	int getMostHeldCards();
 
