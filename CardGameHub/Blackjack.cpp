@@ -43,7 +43,7 @@ void Blackjack::checkForWin() {
 	//loop through each player, check they are up for winning and check if their habnd is higher than the current highest hand, if it is make them the current winner
 	for (player player : getAllPlayers()) 
 	{
-		if (player.isUpForWinning() == true and player.getHandValue(blackjack) > currentHighestHand and player.getHandValue(blackjack) <= 21)
+		if (player.isUpForWinning() == true and player.getHandValue(blackjack) > currentHighestHand and player.getHandValue(blackjack) <= 21 and player.isOut() == false)
 		{
 			currentWinner = player;
 			currentHighestHand = player.getHandValue(blackjack);
