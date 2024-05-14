@@ -42,6 +42,19 @@ int main()
 		}
 		cout << endl;
 
+		//display blackjack rules
+		console.displayText("The aim of blackjack is get to get as close to 21 without going over it as possible", "37");
+		console.displayText("when its your turn you can keep hitting to get as many cards as you like", "37");
+
+		cout << endl << endl;
+
+		//display pyramid solitaire rules
+		console.displayText("The aim of pyramid solitaire is to clear as much of the board as possible", "37");
+		console.displayText("you do this by trying to match your cards with ones on the board so they add to 13", "37");
+		console.displayText("Only cards where the two below them are cleared can be matched, Kings can be matched with anything", "37");
+
+		cout << endl << endl;
+
 		//ask the player for input on what game to play
 		console.displayText("(b) and enter for blackjack, (p) and enter for pyramid solitaire, any other key and enter to close", "37");
 		getline(cin, playerChoice);
